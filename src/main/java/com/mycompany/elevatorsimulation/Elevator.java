@@ -5,6 +5,7 @@
  */
 package com.mycompany.elevatorsimulation;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -12,7 +13,32 @@ import java.util.ArrayList;
  */
 public class Elevator {
     private ArrayList<Person> peopleInElevator;
-
-    public Elevator(){  
-    }   
+    private ArrayList<Integer> floorsToVisit;
+    private int elevatorID;
+    private boolean doorsOpen;
+    private long travelTime;
+    
+    private String direction;
+    private boolean idle;
+    
+    
+    public Elevator(int idIn, long travelTimeIn){
+        doorsOpen = false;
+        travelTime = travelTimeIn;
+    }
+    
+    private void updateFloorsToVisit(){
+        
+    }
+    
+    private void move(){
+        //GET MESSAGE FROM ELEVATORCONTROLLER
+        
+    }
+    
+    private void openDoors() throws InterruptedException{
+        doorsOpen = true;
+        TimeUnit.SECONDS.sleep(2);
+        doorsOpen = false;
+    }
 }
