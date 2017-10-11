@@ -15,32 +15,19 @@ public class Building {
     
     private static int numberOfFloors;
     private static int numberOfElevators;
-    public static ArrayList<Floor> floorArray;
     
-    private static Building instance;
-    
-    //BUILDING SHOULD OWN FLOORS?
-    
-    private Building(){}
-    
-    public static Building getInstance(){
-        if (instance!=null){
-            instance = new Building();
-            floorArray = new ArrayList<Floor>();
-        }
-        return instance;
-    }
-    
-    //MAY DELETE; NEED TO FIGURE OUT CONSTRUCTOR FOR SINGLETON
-    public static void setBuildingSpecs(int numberOfFloorsIn, int numberOfElevatorsIn){
+    private static ArrayList<Floor> floorArray;
+    private static ArrayList<Elevator> elevatorArray;
+
+    public Building(int numberOfFloorsIn, int numberOfElevatorsIn){
         numberOfFloors = numberOfFloorsIn;
         numberOfElevators = numberOfElevatorsIn;
     }
- 
-    public static int getFloorCount(){
+   
+    public int getFloorCount(){
         return numberOfFloors;
     }
-    public static int getElevCount(){
+    public int getElevatorCount(){
         return numberOfElevators;
     }
 }

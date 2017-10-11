@@ -5,20 +5,50 @@
  */
 package com.mycompany.elevatorsimulation;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author johnberry
  */
-public final class ElevatorProcessor {
+public final class ElevatorProcessor{
     
+    private Processor processorDelegate = new StandardElevatorProcessorImpl();
     private static ElevatorProcessor instance;
     
-    private ElevatorProcessor(){
-    }
+    private static ArrayList<Elevator> elevatorBank;
+    // CONVERT TO HASHMAP
+    //MOVE TO IMPL???
+    
+    private ElevatorProcessor(){}
     
     public static ElevatorProcessor getInstance(){
-        if(instance == null)
+        if(instance == null){
             instance = new ElevatorProcessor();
-        return instance;
+            elevatorBank = new ArrayList<Elevator>();
+            return instance;
+        }
+        return instance;   
+    }
+    
+    public void processElevatorRequest(String directionIn, int elevatorIDIn){
+        processorDelegate.processElevatorRequest(directionIn, elevatorIDIn);
+    }
+ 
+    public void processFloorRequest(String directionIn, int floorIDIn){
+        processorDelegate.processFloorRequest(directionIn, floorIDIn);
+    }
+    
+    public void addElevators(ArrayList<Elevator> elevators){
+        for(Elevator elevator : elevators){
+            System.out.println("Adding elevator  " + elevator.getElevatorID());
+            elevatorBank.add(elevator);
+        }
+    }
+    
+    public void sendDestinationFloor(int destFloorIn, int elevatorIDIn){
+        //NEED TO UPDATE WITH DELEGATE CODE
+        Elevator selectedElev = elevatorBank.get(elevatorIDIn);
+        selectedElev.addFloorToVisit(destFloorIn);
     }
 }

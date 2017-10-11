@@ -14,14 +14,18 @@ public class Floor {
     private int floorID;
     private int numberOfElevators;
     private int numberOfPeopleWaiting;
-    //Array List Holding person Objects
+
+    private ElevatorProcessor processor = ElevatorProcessor.getInstance();
     
-    public ArrayList<Person> peopleOnFloor;
+    private ArrayList<Person> peopleOnFloor;
+    private ArrayList<Elevator> availableElevators;
    
     public Floor(int numberOfElevatorsIn, int floorIDIn){
        numberOfElevators = numberOfElevatorsIn;
-       floorID = floorIDIn;      
+       floorID = floorIDIn;    
+       
        peopleOnFloor = new ArrayList<Person>();
+       availableElevators = new ArrayList<Elevator>();
     }
     
     public void addPerson(Person personIn){
@@ -36,4 +40,10 @@ public class Floor {
     public int getFloorID(){
         return floorID;
     }
+    
+    public void sendRequest(String directionIn, int floorIDIn){
+        processor.processFloorRequest(directionIn, floorID);
+    }
+    
+    
 }

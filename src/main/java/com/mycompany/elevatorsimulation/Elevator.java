@@ -11,34 +11,57 @@ import java.util.concurrent.TimeUnit;
  *
  * @author johnberry
  */
-public class Elevator {
+public class Elevator implements ElevatorInterface {
     private ArrayList<Person> peopleInElevator;
     private ArrayList<Integer> floorsToVisit;
+    
     private int elevatorID;
     private boolean doorsOpen;
-    private long travelTime;
+    private int maxNumberPeople;
+    private int currentFloor;
+    
+    private long travelTimeMills;
+    private long doorActionTimesMills;
+  
+    private ElevatorProcessor processor = ElevatorProcessor.getInstance();
     
     private String direction;
     private boolean idle;
-    
-    
-    public Elevator(int idIn, long travelTimeIn){
+
+    public Elevator(int elevatorIDIn, long travelTimeMillsIn,
+                                   long doorActionTimeMillsIn, int maxNumberPeopleIn){
+        elevatorID = elevatorIDIn;
         doorsOpen = false;
-        travelTime = travelTimeIn;
+        travelTimeMills = travelTimeMillsIn;
+        currentFloor = 1;
+        floorsToVisit = new ArrayList<Integer>();
     }
     
-    private void updateFloorsToVisit(){
+    // SIMULATING MOVEMENT
+    public void move(int destFloor){
+        currentFloor = destFloor;
+    }
+    
+    public void addFloorToVisit(int floorID){
+        floorsToVisit.add(floorID);
+        System.out.println("Updated stops for elevator " + elevatorID);
+        System.out.println("List of stops:  ");
         
+        for(int i : floorsToVisit){
+            System.out.println("Floor: " + i);
+        } 
+    }
+    public void openDoors(){
     }
     
-    private void move(){
-        //GET MESSAGE FROM ELEVATORCONTROLLER
-        
+    public void closeDoors(){
     }
     
-    private void openDoors() throws InterruptedException{
-        doorsOpen = true;
-        TimeUnit.SECONDS.sleep(2);
-        doorsOpen = false;
+    public int getCurrentFloor(){
+        return currentFloor;
+    }
+    
+    public int getElevatorID(){
+        return elevatorID;
     }
 }

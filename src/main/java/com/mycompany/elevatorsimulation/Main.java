@@ -4,8 +4,13 @@
  * and open the template in the editor.
  */
 package com.mycompany.elevatorsimulation;
+
 import java.util.ArrayList;
 import java.util.Random;
+import gui.ElevatorDisplay;
+import static gui.ElevatorDisplay.Direction.DOWN;
+import static gui.ElevatorDisplay.Direction.IDLE;
+import static gui.ElevatorDisplay.Direction.UP;
 
 /**
  *
@@ -17,59 +22,68 @@ public class Main {
      * @param args the command line arguments
      */
     
+    //REPLACE WITH XML TO FEED
     public static int NUMBER_OF_FLOORS = 10;
-    public static int NUMBER_OF_ELEVATORS = 4;
+    public static int NUMBER_OF_ELEVATORS = 6;
     public static int NUMBER_OF_PEOPLE = 20;
+    public static int MAX_ELEVATOR_CAPACITY = 20;
     
-    public static long TRAVEL_TIME_PER_FLOOR_MILLIS = 3000;
-    public static ArrayList<Floor> tempFloorArray;
+    public static long TRAVEL_TIME_MILLIS = 3000;
+    public static long DOOR_TIME_MILLIS = 4000;
+    
+    
+    
+    public static ArrayList<Floor> tempFloorArray = new ArrayList<Floor>();
+    public static ArrayList<Elevator> tempElevatorArray = new ArrayList<Elevator>();
 
     
     public static void main(String[] args) {
         
-        tempFloorArray = new ArrayList<Floor>();
-        
-        //CREATE BUILDING AND SET NUMBER OF ELEVATORS AND FLOORS
-        //CREATE PEOPLE
-        ArrayList<Person> testPersonArray = testPeopleCreator();
-        Building building = Building.getInstance();
-        
-        //CREATE FLOORS AND POPULATE THEIR PEOPLEWAITINGARRAYS WITH PPL
-        
-        for(int i=1; i <= NUMBER_OF_FLOORS; i++){
-            Floor currentFloor = new Floor(NUMBER_OF_ELEVATORS, i);
-            //ADD PEOPLE TO FLOORS
-            for(Person p : testPersonArray){
-                int currentID = p.getCurrentFloor();
-                System.out.println("Current FloorID: " + currentID + " for Person: " + p.getID());
-                if (i == currentID){
-                    currentFloor.addPerson(p);
-                }
-            }
-            tempFloorArray.add(currentFloor);
+        //Building building = BuildingFactory.createBuilding("Standard", NUMBER_OF_FLOORS, NUMBER_OF_ELEVATORS);
+ 
+        for(int i=1; i<=NUMBER_OF_FLOORS; i++){
+            Floor newFloor = FloorFactory.createFloor(NUMBER_OF_ELEVATORS, i);
+            tempFloorArray.add(newFloor);
         }
-        building.floorArray = tempFloorArray; //Setting Building owns array of floors
-        building.setBuildingSpecs(NUMBER_OF_FLOORS, NUMBER_OF_ELEVATORS); //LIKELY REDUNDANT
-
-        for(Floor f : building.floorArray){
-          System.out.println("Floor: " + f.getFloorID() + " has # people:  " + f.getNumberofPeopleWaiting());
-          System.out.println(" ");
-            
-            for(Person p : f.peopleOnFloor){
-                System.out.println("Person: " + p.getID() + " is waiting on floor: " + p.getCurrentFloor());
-                System.out.println(" ");
-            }
+        
+        for(int i=1; i<=NUMBER_OF_ELEVATORS; i++){
+            Elevator newElevator = ElevatorFactory.createElevator(i, TRAVEL_TIME_MILLIS, DOOR_TIME_MILLIS, MAX_ELEVATOR_CAPACITY);
+            tempElevatorArray.add(newElevator);
         }
+        
+        ElevatorProcessor.getInstance().addElevators(tempElevatorArray);
+        
+        ElevatorProcessor.getInstance().sendDestinationFloor(9, 2);
+        ElevatorProcessor.getInstance().sendDestinationFloor(6, 2);
+        
     }
+    
+    public void startSimulation(int floorNumIn, int elevatorNumIn, int peopleNumIn){
+        ElevatorDisplay.getInstance().initialize(floorNumIn);
+        for (int i = 1; i <= 23; i++) {
+            ElevatorDisplay.getInstance().addElevator(i, 1);
+        }
+        
+    }
+    
+    public void setUpBuilding(){
+        
+    }
+    
+    
+    
+    
+    
+    
     
     public Person createNewPersonObj(int ID, int floor){
         Person newPersonObj = new Person(ID, floor);
         return newPersonObj;
     }
     
-    public ElevatorController createNewElevatorController(){
-        ElevatorController newElevatorController = ElevatorController.getInstance();
-        return newElevatorController;
+    public ElevatorProcessor createNewElevatorProcessor(){
+        ElevatorProcessor newElevatorProcessor = ElevatorProcessor.getInstance();
+        return newElevatorProcessor;
     }
 
     public static ArrayList testPeopleCreator(){
