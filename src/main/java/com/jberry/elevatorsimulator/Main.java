@@ -5,6 +5,13 @@
  */
 package com.jberry.elevatorsimulator;
 
+import com.jberry.elevatorsimulator.domain.Person;
+import com.jberry.elevatorsimulator.domain.Elevator;
+import com.jberry.elevatorsimulator.domain.Floor;
+import com.jberry.elevatorsimulator.domain.ElevatorProcessor;
+import com.jberry.elevatorsimulator.factories.BuildingFactory;
+import com.jberry.elevatorsimulator.factories.PersonFactory;
+
 import java.util.ArrayList;
 import java.util.Random;
 import gui.ElevatorDisplay;
@@ -22,10 +29,13 @@ public class Main {
      */
     
     private static String settingsFilePath = "/Users/johnberry/NetBeansProjects/ElevatorSimulatorSE450/src/main/java/com/jberry/elevatorsimulator/simulationSpecs.json";
+    private static final int LOBBY_FLOOR = 1;
+    
     private static int NUMBER_OF_FLOORS;
     private static int NUMBER_OF_ELEVATORS;
     private static int NUMBER_OF_PEOPLE;
     private static int MAX_ELEVATOR_CAPACITY;
+    
     
     private static long TRAVEL_TIME_MILLIS;
     private static long DOOR_TIME_MILLIS;
@@ -50,6 +60,10 @@ public class Main {
                            " CAPAC:  "+MAX_ELEVATOR_CAPACITY+
                            " Travel: "+TRAVEL_TIME_MILLIS+
                            " DOOR:   "+DOOR_TIME_MILLIS);
+        
+        PersonFactory.createPeople(NUMBER_OF_PEOPLE, NUMBER_OF_FLOORS);
+        
+ 
  
         //Building building = BuildingFactory.createBuilding("Standard", NUMBER_OF_FLOORS, NUMBER_OF_ELEVATORS);
  
@@ -75,32 +89,70 @@ public class Main {
             ElevatorDisplay.getInstance().addElevator(i, 1);
         } 
     }
-    
-    public void setUpBuilding(){
-        
-    }
-     
-    public Person createNewPersonObj(int ID, int floor){
-        Person newPersonObj = new Person(ID, floor);
-        return newPersonObj;
-    }
+//    
+//    private void setUpBuilding(){
+//        
+//        ArrayList<Person> peopleToEnterBuilding = new ArrayList<Person>();
+//        
+//        BuildingFactory building = new BuildingFactory();  
+//    }
     
     public ElevatorProcessor createNewElevatorProcessor(){
         ElevatorProcessor newElevatorProcessor = ElevatorProcessor.getInstance();
         return newElevatorProcessor;
     }
-
-    public static ArrayList testPeopleCreator(){
-        //CREATES NEW PERSON OBJECT AND ADDS THEM TO FLOOR
-        ArrayList<Person> personArray = new ArrayList<Person>();
+    
+    
+    public static void testPeopleFactoryCode(){
+        Random rn = new Random();
+        int randomStartingFloor;
+        int randomDestinationFloor;
         
-        for(int i=1; i <= NUMBER_OF_PEOPLE; i++){
-            //RANDOM GENERATOR FOR FLOOR
-            Random rn = new Random();
-            int floorRandom = rn.nextInt(NUMBER_OF_FLOORS - 1 + 1) + 1;
-            Person newPers = new Person(i, floorRandom);
-            personArray.add(newPers);
+        for(int i=1; i<= 10; i++){
+            randomStartingFloor = rn.nextInt((NUMBER_OF_FLOORS - 1) + 1) + 1;
+            
+            //IF PERSONS CURRENT FLOOR IS TOP FLOOR; CALCULATE RANDOM INT
+            //SHRINK MAX RANGE TO BE TOTAL FLOORS - 1
+            
+            if (randomStartingFloor == NUMBER_OF_FLOORS){
+                int maxFloor = NUMBER_OF_FLOORS - 1;
+                randomDestinationFloor = rn.nextInt(((maxFloor - LOBBY_FLOOR) - LOBBY_FLOOR) + 1) + 1;
+            }
+            else if(randomStartingFloor == LOBBY_FLOOR)
+            {
+                int minFloor = LOBBY_FLOOR + 1;
+                randomDestinationFloor = rn.nextInt((NUMBER_OF_FLOORS - minFloor) + 1) + minFloor;      
+            }
+            else{
+               randomDestinationFloor = rn.nextInt((NUMBER_OF_FLOORS - LOBBY_FLOOR) + 1) + LOBBY_FLOOR;
+                if (randomDestinationFloor == randomStartingFloor)
+                    randomDestinationFloor++;       
+            }
+            
+            
+            System.out.println(" ------------");
+            System.out.println("Person ID: " + i);
+            System.out.println("Starting Floor: " + randomStartingFloor);
+            System.out.println("Destination Floor: " + randomDestinationFloor);
+            
         }
-        return personArray;
+        
+        
+        
     }
+
+//    public static ArrayList testPeopleCreator(){
+//        //CREATES NEW PERSON OBJECT AND ADDS THEM TO FLOOR
+//        ArrayList<Person> personArray = new ArrayList<Person>();
+//        
+//        for(int i=1; i <= NUMBER_OF_PEOPLE; i++){
+//            //RANDOM GENERATOR FOR FLOOR
+//            Random rn = new Random();
+//            int floorRandom = rn.nextInt(NUMBER_OF_FLOORS - 1 + 1) + 1;
+//            Person newPers = new Person(i, floorRandom);
+//            personArray.add(newPers);
+//        }
+//        return personArray;
+//    }
+    
 }

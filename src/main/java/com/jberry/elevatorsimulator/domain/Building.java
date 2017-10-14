@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jberry.elevatorsimulator;
+package com.jberry.elevatorsimulator.domain;
 
 import java.util.ArrayList;
 
@@ -16,18 +16,18 @@ public class Building {
     private static int numberOfFloors;
     private static int numberOfElevators;
     
-    private static ArrayList<Floor> floorArray;
-    private static ArrayList<Elevator> elevatorArray;
+    private static ArrayList<Floor> floors;
+    private static ArrayList<Elevator> elevators;
 
-    public Building(int numberOfFloorsIn, int numberOfElevatorsIn){
-        numberOfFloors = numberOfFloorsIn;
-        numberOfElevators = numberOfElevatorsIn;
+    public Building(ArrayList<Floor>floorsIn, ArrayList<Elevator>elevatorsIn){
+        floors = floorsIn;
+        elevators = elevatorsIn;
     }
    
     public int getFloorCount(){
-        return numberOfFloors;
+        return floors.size();
     }
     public int getElevatorCount(){
-        return numberOfElevators;
+        return elevators.size();
     }
 }

@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jberry.elevatorsimulator;
+package com.jberry.elevatorsimulator.domain;
+import com.jberry.elevatorsimulator.ElevatorInterface;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -12,18 +13,19 @@ import java.util.concurrent.TimeUnit;
  * @author johnberry
  */
 public class Elevator implements ElevatorInterface {
+    private ElevatorProcessor processor = ElevatorProcessor.getInstance();
+    private int elevatorID;
+    private int maxNumberPeople;
+    
     private ArrayList<Person> peopleInElevator;
     private ArrayList<Integer> floorsToVisit;
     
-    private int elevatorID;
     private boolean doorsOpen;
-    private int maxNumberPeople;
     private int currentFloor;
     
     private long travelTimeMills;
     private long doorActionTimesMills;
-  
-    private ElevatorProcessor processor = ElevatorProcessor.getInstance();
+ 
     
     private String direction;
     private boolean idle;

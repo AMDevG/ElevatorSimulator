@@ -5,6 +5,7 @@
  */
 package com.jberry.elevatorsimulator;
 
+import com.jberry.elevatorsimulator.domain.Elevator;
 import java.util.ArrayList;
 
 /**

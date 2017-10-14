@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jberry.elevatorsimulator;
+package com.jberry.elevatorsimulator.factories;
+
+import com.jberry.elevatorsimulator.domain.Elevator;
 
 /**
  *

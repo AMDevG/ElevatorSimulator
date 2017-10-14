@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jberry.elevatorsimulator;
+package com.jberry.elevatorsimulator.domain;
 
+import com.jberry.elevatorsimulator.Processor;
+import com.jberry.elevatorsimulator.StandardElevatorProcessorImpl;
 import java.util.ArrayList;
 
 /**

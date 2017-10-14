@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jberry.elevatorsimulator;
+package com.jberry.elevatorsimulator.domain;
 
 import java.util.Random;
 
@@ -12,20 +12,35 @@ import java.util.Random;
  * @author johnberry
  */
 public class Person {
+    private int personID;
     
-    private int ID;
     private long waitTime;
     private long startTime;
     private long endTime;
-    private boolean waiting;
-    private int currentFloor;
-    private int destFloor;
     
-    public Person(int IDIn, int currentFloorIn){
+    private boolean waiting;
+    
+    private int currentFloor;
+    private int destinationFloor;
+    
+    public Person(int IDIn, int currentFloorIn, int destFloorIn){
         ID = IDIn;
         currentFloor = currentFloorIn;
+        destinationFloor = destFloorIn;
         waiting = true;
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     public void exitElevator(){
         waiting = false;
