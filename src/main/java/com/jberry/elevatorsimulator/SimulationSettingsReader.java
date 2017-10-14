@@ -25,7 +25,6 @@ public class SimulationSettingsReader {
     public static SimulatorSetting parseSimulationSettings(String filePathIn){
 
        try{
-           System.out.println("Parssing Simulator");
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader(filePathIn));
             JSONObject jsonObject = (JSONObject) obj;

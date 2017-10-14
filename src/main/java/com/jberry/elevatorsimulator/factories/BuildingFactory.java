@@ -6,10 +6,8 @@
 package com.jberry.elevatorsimulator.factories;
 
 import com.jberry.elevatorsimulator.domain.Building;
-import com.jberry.elevatorsimulator.domain.Person;
 import com.jberry.elevatorsimulator.domain.Floor;
 import com.jberry.elevatorsimulator.domain.Elevator;
-
 
 import java.util.ArrayList;
 
@@ -22,18 +20,12 @@ public class BuildingFactory {
     private ElevatorFactory elevatorFactory;
     private PersonFactory personFactory;
     private ArrayList<Floor> buildingFloors;
-    
-//    public static Building createBuilding(String type, ArrayList<Floor> floorsIn, ArrayList<Elevator> elevatorsIn){
-//        
-//        
-//        
-//        
-//    }
-//        if (type.equals("Standard")){
-//                return new Building(floorsIn, elevatorsIn);
-//            }
-//            else return null;
-//        }
-    
+   
+    //CREATE TO DYNAMICALLY ALLOW DIFFERENT BUILDING TYPES THROUGH IMPL; TYPE INPUT
+    public static Building createBuilding(String type, ArrayList<Floor> floorsIn, ArrayList<Elevator> elevatorsIn){
+        
+        Building building = new Building(floorsIn, elevatorsIn);
+        return building; 
+    }
 }
   
