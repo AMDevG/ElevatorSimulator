@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class FloorFactory {
     
-    private final ArrayList<Floor> buildingFloors;
+    private static ArrayList<Floor> buildingFloors;
     
     public FloorFactory(){
         buildingFloors = new ArrayList<Floor>();
@@ -25,6 +25,8 @@ public class FloorFactory {
         for(int i=1; i<=numberOfFloorsIn; i++){
             new Floor(numberOfElevatorsIn, i);
         }
+        
+        return buildingFloors;
     }
     
 }

@@ -61,16 +61,16 @@ public class Main {
                            " Travel: "+TRAVEL_TIME_MILLIS+
                            " DOOR:   "+DOOR_TIME_MILLIS);
         
-       // ArrayList<Person> peopleEnteringBuilding = PersonFactory.createPeople(NUMBER_OF_PEOPLE, NUMBER_OF_FLOORS);
+       ArrayList<Person> peopleEnteringBuilding = PersonFactory.createPeople(NUMBER_OF_PEOPLE, NUMBER_OF_FLOORS);
         
-//        for(Person p : peopleEnteringBuilding){
-//            
-//            System.out.println(" Person: "+p.getID()+
-//                               " is on Floor: " +p.getCurrentFloor()+
-//                               " wants to go to Floor: " +p.getDestinationFloor()+
-//                               "-------------------------");
-//        }
- 
+        for(Person p : peopleEnteringBuilding){
+            
+            System.out.println(" Person: "+p.getID()+
+                               " is on Floor: " +p.getCurrentFloor()+
+                               " wants to go to Floor: " +p.getDestinationFloor()+
+                               "-------------------------");
+        }
+// 
  
         //Building building = BuildingFactory.createBuilding("Standard", NUMBER_OF_FLOORS, NUMBER_OF_ELEVATORS);
  
