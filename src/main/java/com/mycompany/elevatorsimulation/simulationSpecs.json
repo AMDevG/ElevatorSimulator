@@ -1,0 +1,8 @@
+{
+    "numberOfFloors":8,
+    "numberOfElevators":3,
+    "numberOfPeople":3405,
+    "maxElevatorCapacity":10,
+    "doorFunctionTimeMills":4000,
+    "travelTimeMills":6000
+}

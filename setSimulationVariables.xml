@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<simulationSpecs>
+<building>
+    <numberOfFloors>10</numberOfFloors>
+    <numberOfElevators>6</numberOfElevators>
+    <numberOfPeople>10</numberOfPeople> 
+</building>
+
+<elevator>
+    <elevatorDoorTimeMills>2000</elevatorDoorTimeMills>
+    <elevatorTravelTimeMills>4000</elevatorTravelTimeMills>
+    <elevatorMaxCapacity>10</elevatorMaxCapacity>
+</elevator>
+</simulationSpecs>
