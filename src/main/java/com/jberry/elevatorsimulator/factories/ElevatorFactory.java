@@ -17,12 +17,12 @@ public class ElevatorFactory {
     private static ArrayList<Elevator> elevatorsCreated;
     
     public static ArrayList<Elevator> createElevators(int numberOfElevatorsToCreate, long travelTimeMillsIn,
-                                   long doorActionTimeMillsIn, int maxNumberPeopleIn){
+                                   long doorActionTimeMillsIn, int maxNumberPeopleIn, long idleTimeMillsIn){
       elevatorsCreated = new ArrayList<Elevator>();
       
       for(int i=1; i<=numberOfElevatorsToCreate; i++){
             Elevator newElevator = new Elevator(i, travelTimeMillsIn, 
-                        doorActionTimeMillsIn, maxNumberPeopleIn);
+                        doorActionTimeMillsIn, maxNumberPeopleIn, idleTimeMillsIn);
             elevatorsCreated.add(newElevator);
         } 
       return elevatorsCreated;

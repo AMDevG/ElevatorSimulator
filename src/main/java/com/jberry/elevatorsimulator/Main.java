@@ -69,17 +69,24 @@ public class Main {
      
        ArrayList<Floor> buildingFloors = FloorFactory.createFloors(NUMBER_OF_FLOORS, NUMBER_OF_ELEVATORS, peopleEnteringBuilding);
        
-       ArrayList<Elevator>buildingElevators = ElevatorFactory.createElevators(NUMBER_OF_ELEVATORS, TRAVEL_TIME_MILLIS, DOOR_TIME_MILLIS, MAX_ELEVATOR_CAPACITY);
+       ArrayList<Elevator> buildingElevators = ElevatorFactory.createElevators(NUMBER_OF_ELEVATORS, TRAVEL_TIME_MILLIS, DOOR_TIME_MILLIS, MAX_ELEVATOR_CAPACITY, IDLE_TIME_MILLIS);
+       
+            for(Elevator elevator : buildingElevators){
+                System.out.println("Elevator ID: "+elevator.getElevatorID()+
+                   " Is on Floor "+elevator.getCurrentFloor()+
+                   " & Has Floors to Visit ");   
+                
+                ArrayList<Integer> ftv = elevator.getFloorsToVisit();
+                
+                for(int floorID : ftv){
+                    System.out.println(" " + floorID);
+                }
+        }
        
         
 //       System.out.println("Number of Floors in Floor Array: "+buildingFloors.size());
 //       
-//       for(Floor floor : buildingFloors){
-//           System.out.println("Floor ID: "+floor.getFloorID()+
-//                   " Number of People Waiting: "+floor.getNumberofPeopleWaiting()+
-//                   " Destinations of People: ");   
-//           floor.getDestinationFloorsOfPeopleWaiting();
-//        }
+// 
  
         //Building building = BuildingFactory.createBuilding("Standard", NUMBER_OF_FLOORS, NUMBER_OF_ELEVATORS);
  

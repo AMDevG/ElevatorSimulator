@@ -25,17 +25,19 @@ public class Elevator implements ElevatorInterface {
     
     private long travelTimeMills;
     private long doorActionTimesMills;
+    private long idleTimeMills;
  
     
     private String direction;
     private boolean idle;
 
     public Elevator(int elevatorIDIn, long travelTimeMillsIn,
-                                   long doorActionTimeMillsIn, int maxNumberPeopleIn){
+                                   long doorActionTimeMillsIn, int maxNumberPeopleIn, long idleTimeMillsIn){
         elevatorID = elevatorIDIn;
         doorsOpen = false;
         travelTimeMills = travelTimeMillsIn;
         currentFloor = 1;
+        idleTimeMills = idleTimeMillsIn;
         floorsToVisit = new ArrayList<Integer>();
     }
     
@@ -65,5 +67,16 @@ public class Elevator implements ElevatorInterface {
     
     public int getElevatorID(){
         return elevatorID;
+    }
+    
+    public long getIdleTime(){
+        return idleTimeMills;
+    }
+    
+    public ArrayList<Integer> getFloorsToVisit(){
+        ArrayList<Integer>copyOfFloorsToVisit = new ArrayList<Integer>();   
+        for(int floorIDOut : floorsToVisit)
+            copyOfFloorsToVisit.add(floorIDOut);
+        return copyOfFloorsToVisit;
     }
 }
