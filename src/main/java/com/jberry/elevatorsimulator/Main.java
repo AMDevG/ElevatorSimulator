@@ -40,8 +40,8 @@ public class Main {
     private static long TRAVEL_TIME_MILLIS;
     private static long DOOR_TIME_MILLIS;
     
-    public static ArrayList<Floor> tempFloorArray = new ArrayList<Floor>();
-    public static ArrayList<Elevator> tempElevatorArray = new ArrayList<Elevator>();
+    //public static ArrayList<Floor> tempFloorArray = new ArrayList<Floor>();
+    //public static ArrayList<Elevator> tempElevatorArray = new ArrayList<Elevator>();
 
     public static void main(String[] args) {
         SimulatorSetting simulationSettings = SimulationSettingsReader.parseSimulationSettings(settingsFilePath); //ACCEPT PARAMS OF FILE PATH
@@ -61,8 +61,15 @@ public class Main {
                            " Travel: "+TRAVEL_TIME_MILLIS+
                            " DOOR:   "+DOOR_TIME_MILLIS);
         
-        PersonFactory.createPeople(NUMBER_OF_PEOPLE, NUMBER_OF_FLOORS);
+       // ArrayList<Person> peopleEnteringBuilding = PersonFactory.createPeople(NUMBER_OF_PEOPLE, NUMBER_OF_FLOORS);
         
+//        for(Person p : peopleEnteringBuilding){
+//            
+//            System.out.println(" Person: "+p.getID()+
+//                               " is on Floor: " +p.getCurrentFloor()+
+//                               " wants to go to Floor: " +p.getDestinationFloor()+
+//                               "-------------------------");
+//        }
  
  
         //Building building = BuildingFactory.createBuilding("Standard", NUMBER_OF_FLOORS, NUMBER_OF_ELEVATORS);
@@ -83,12 +90,12 @@ public class Main {
 //        ElevatorProcessor.getInstance().sendDestinationFloor(6, 2);   
     }
     
-    public void startSimulation(int floorNumIn, int elevatorNumIn, int peopleNumIn){
-        ElevatorDisplay.getInstance().initialize(floorNumIn);
-        for (int i = 1; i <= 23; i++) {
-            ElevatorDisplay.getInstance().addElevator(i, 1);
-        } 
-    }
+//    public void startSimulation(int floorNumIn, int elevatorNumIn, int peopleNumIn){
+//        ElevatorDisplay.getInstance().initialize(floorNumIn);
+//        for (int i = 1; i <= 23; i++) {
+//            ElevatorDisplay.getInstance().addElevator(i, 1);
+//        } 
+//    }
 //    
 //    private void setUpBuilding(){
 //        
@@ -96,50 +103,13 @@ public class Main {
 //        
 //        BuildingFactory building = new BuildingFactory();  
 //    }
-    
-    public ElevatorProcessor createNewElevatorProcessor(){
-        ElevatorProcessor newElevatorProcessor = ElevatorProcessor.getInstance();
-        return newElevatorProcessor;
-    }
-    
-    
-    public static void testPeopleFactoryCode(){
-        Random rn = new Random();
-        int randomStartingFloor;
-        int randomDestinationFloor;
-        
-        for(int i=1; i<= 10; i++){
-            randomStartingFloor = rn.nextInt((NUMBER_OF_FLOORS - 1) + 1) + 1;
-            
-            //IF PERSONS CURRENT FLOOR IS TOP FLOOR; CALCULATE RANDOM INT
-            //SHRINK MAX RANGE TO BE TOTAL FLOORS - 1
-            
-            if (randomStartingFloor == NUMBER_OF_FLOORS){
-                int maxFloor = NUMBER_OF_FLOORS - 1;
-                randomDestinationFloor = rn.nextInt(((maxFloor - LOBBY_FLOOR) - LOBBY_FLOOR) + 1) + 1;
-            }
-            else if(randomStartingFloor == LOBBY_FLOOR)
-            {
-                int minFloor = LOBBY_FLOOR + 1;
-                randomDestinationFloor = rn.nextInt((NUMBER_OF_FLOORS - minFloor) + 1) + minFloor;      
-            }
-            else{
-               randomDestinationFloor = rn.nextInt((NUMBER_OF_FLOORS - LOBBY_FLOOR) + 1) + LOBBY_FLOOR;
-                if (randomDestinationFloor == randomStartingFloor)
-                    randomDestinationFloor++;       
-            }
-            
-            
-            System.out.println(" ------------");
-            System.out.println("Person ID: " + i);
-            System.out.println("Starting Floor: " + randomStartingFloor);
-            System.out.println("Destination Floor: " + randomDestinationFloor);
-            
-        }
-        
-        
-        
-    }
+//    
+//    public ElevatorProcessor createNewElevatorProcessor(){
+//        ElevatorProcessor newElevatorProcessor = ElevatorProcessor.getInstance();
+//        return newElevatorProcessor;
+//    }
+//    
+
 
 //    public static ArrayList testPeopleCreator(){
 //        //CREATES NEW PERSON OBJECT AND ADDS THEM TO FLOOR

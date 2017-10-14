@@ -11,12 +11,12 @@ package com.jberry.elevatorsimulator;
  */
 public class SimulatorSetting{
     
-    private int floors;
-    private int elevators;
-    private int people;
-    private int elevatorCapacity;
-    private long doorTimeMills;
-    private long travelTimeMills;
+    private final int floors;
+    private final int elevators;
+    private final int people;
+    private final int elevatorCapacity;
+    private final long doorTimeMills;
+    private final long travelTimeMills;
     
     public SimulatorSetting(int floorsIn, int elevatorsIn, int peopleIn,
                             int elevCapacityIn, long doorTimeMillsIn, long travelTimeMillsIn){
@@ -29,9 +29,9 @@ public class SimulatorSetting{
     }
     
     public int getSettingsFloorCount(){return floors;}
-    public int getSettingsElevatorCount(){return floors;}
-    public int getSettingsPeopleCount(){return floors;}
-    public int getSettingsElevatorCapacity(){return floors;}
+    public int getSettingsElevatorCount(){return elevators;}
+    public int getSettingsPeopleCount(){return people;}
+    public int getSettingsElevatorCapacity(){return elevatorCapacity;}
     public long getSettingsDoorFunctionTime(){return doorTimeMills;}
     public long getSettingsElevTravelTime(){return travelTimeMills;}
      

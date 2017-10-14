@@ -24,24 +24,12 @@ public class Person {
     private int destinationFloor;
     
     public Person(int IDIn, int currentFloorIn, int destFloorIn){
-        ID = IDIn;
+        personID = IDIn;
         currentFloor = currentFloorIn;
         destinationFloor = destFloorIn;
         waiting = true;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+     
     public void exitElevator(){
         waiting = false;
         calculateWaitTime();
@@ -51,19 +39,14 @@ public class Person {
     }
     
     public int getID(){ // PUT INTO INTERFACE?
-        return ID;
+        return personID;
     }
     
     public int getCurrentFloor(){
         return currentFloor;
     }
-    
-    private void callElevator(){
-        System.out.println("Just called elevator");
-        Random rand = new Random();
-        int randomNum = rand.nextInt((10 - 1) + 1) + 1;
-        destFloor = randomNum;
-        startWaitTime();
+    public int getDestinationFloor(){
+        return destinationFloor;
     }
     
     private void startWaitTime(){

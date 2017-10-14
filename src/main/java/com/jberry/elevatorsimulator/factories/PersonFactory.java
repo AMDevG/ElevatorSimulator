@@ -21,21 +21,20 @@ public class PersonFactory {
     //CREATES ALL PEOPLE IN BUILDING; REQUIRES NUMBER OF PPL
     //REQUIRES MAX NUMBER OF FLOORS TO DISTRIBUTE
     public static ArrayList<Person> createPeople(int numberPeopleToCreate, int maxFloors){
+        peopleInBuilding = new ArrayList<Person>();
         int randomStartingFloor;
         int randomDestinationFloor;
         
         TOP_FLOOR = maxFloors; 
-        peopleInBuilding = new ArrayList<Person>();
+       
         Random rn = new Random();
 
         //ASSIGNS ID (1 -> TOTAL NUMBER OF PEOPLE)
         //ASSIGNS RANDOM STARTING & DESTINATION FLOORS
         
-        for(int i=1; i<= 10; i++){
+        for(int i=1; i<= numberPeopleToCreate; i++){
             randomStartingFloor = rn.nextInt((TOP_FLOOR - LOBBY_FLOOR) + 1) + LOBBY_FLOOR;
-            
-            //IF PERSONS CURRENT FLOOR IS TOP FLOOR; CALCULATE RANDOM INT
-            //SHRINK MAX RANGE TO BE TOTAL FLOORS - 1
+            int newID = i;
             
             if (randomStartingFloor == TOP_FLOOR){
                 int maxFloor = TOP_FLOOR - 1;
@@ -50,17 +49,9 @@ public class PersonFactory {
                randomDestinationFloor = rn.nextInt((TOP_FLOOR - LOBBY_FLOOR) + 1) + LOBBY_FLOOR;
                 if (randomDestinationFloor == randomStartingFloor)
                     randomDestinationFloor++;       
-            }
-            
-            
-            System.out.println(" ------------");
-            System.out.println("Person ID: " + i);
-            System.out.println("Starting Floor: " + randomStartingFloor);
-            System.out.println("Destination Floor: " + randomDestinationFloor);
-            
-           // Person newPerson = new Person(i,randomFloor);
-            //peopleInBuilding.add(newPerson);
-            
+            } 
+            Person newPerson = new Person(newID,randomStartingFloor, randomDestinationFloor);
+            peopleInBuilding.add(newPerson);
         }
        return peopleInBuilding; 
     }
