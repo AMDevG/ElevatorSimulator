@@ -10,6 +10,8 @@ import com.jberry.elevatorsimulator.domain.Elevator;
 import com.jberry.elevatorsimulator.domain.Floor;
 import com.jberry.elevatorsimulator.domain.ElevatorProcessor;
 import com.jberry.elevatorsimulator.factories.BuildingFactory;
+import com.jberry.elevatorsimulator.factories.ElevatorFactory;
+import com.jberry.elevatorsimulator.factories.FloorFactory;
 import com.jberry.elevatorsimulator.factories.PersonFactory;
 
 import java.util.ArrayList;
@@ -36,9 +38,9 @@ public class Main {
     private static int NUMBER_OF_PEOPLE;
     private static int MAX_ELEVATOR_CAPACITY;
     
-    
     private static long TRAVEL_TIME_MILLIS;
     private static long DOOR_TIME_MILLIS;
+    private static long IDLE_TIME_MILLIS;
     
     //public static ArrayList<Floor> tempFloorArray = new ArrayList<Floor>();
     //public static ArrayList<Elevator> tempElevatorArray = new ArrayList<Elevator>();
@@ -53,24 +55,31 @@ public class Main {
         
         TRAVEL_TIME_MILLIS = simulationSettings.getSettingsElevTravelTime();
         DOOR_TIME_MILLIS = simulationSettings.getSettingsDoorFunctionTime();
+        IDLE_TIME_MILLIS = simulationSettings.getSettingsElevIdleTime();
         
         System.out.println(" Floors: "+NUMBER_OF_FLOORS+
                            " Elevs:  "+NUMBER_OF_ELEVATORS+
                            " PPL:    "+NUMBER_OF_PEOPLE+
                            " CAPAC:  "+MAX_ELEVATOR_CAPACITY+
                            " Travel: "+TRAVEL_TIME_MILLIS+
-                           " DOOR:   "+DOOR_TIME_MILLIS);
+                           " DOOR:   "+DOOR_TIME_MILLIS+
+                           " IDLE:   "+IDLE_TIME_MILLIS);
         
        ArrayList<Person> peopleEnteringBuilding = PersonFactory.createPeople(NUMBER_OF_PEOPLE, NUMBER_OF_FLOORS);
+     
+       ArrayList<Floor> buildingFloors = FloorFactory.createFloors(NUMBER_OF_FLOORS, NUMBER_OF_ELEVATORS, peopleEnteringBuilding);
+       
+       ArrayList<Elevator>buildingElevators = ElevatorFactory.createElevators(NUMBER_OF_ELEVATORS, TRAVEL_TIME_MILLIS, DOOR_TIME_MILLIS, MAX_ELEVATOR_CAPACITY);
+       
         
-        for(Person p : peopleEnteringBuilding){
-            
-            System.out.println(" Person: "+p.getID()+
-                               " is on Floor: " +p.getCurrentFloor()+
-                               " wants to go to Floor: " +p.getDestinationFloor()+
-                               "-------------------------");
-        }
-// 
+//       System.out.println("Number of Floors in Floor Array: "+buildingFloors.size());
+//       
+//       for(Floor floor : buildingFloors){
+//           System.out.println("Floor ID: "+floor.getFloorID()+
+//                   " Number of People Waiting: "+floor.getNumberofPeopleWaiting()+
+//                   " Destinations of People: ");   
+//           floor.getDestinationFloorsOfPeopleWaiting();
+//        }
  
         //Building building = BuildingFactory.createBuilding("Standard", NUMBER_OF_FLOORS, NUMBER_OF_ELEVATORS);
  

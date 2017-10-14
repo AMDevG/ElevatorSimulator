@@ -15,12 +15,16 @@ public class Floor {
     private ElevatorProcessor processor = ElevatorProcessor.getInstance();
     
     private ArrayList<Person> peopleWaitingOnFloor;
+    private ArrayList<Person> peopleCompletedTrips;
+    
     private ArrayList<Elevator> availableElevators;
    
-    public Floor(int numberOfElevatorsIn, int floorIDIn){
+    //REPLACE elevatorCount with ArrayList<Elevator>elevatorsIn 
+    public Floor(int floorIDIn, int elevatorCount, ArrayList<Person>peopleIn){
        floorID = floorIDIn;    
-       peopleWaitingOnFloor = new ArrayList<Person>();
-       availableElevators = new ArrayList<Elevator>();
+       peopleWaitingOnFloor = peopleIn;
+       peopleCompletedTrips = new ArrayList<Person>();
+       //availableElevators = elevatorsIn;
     }
     
     public void addPerson(Person personIn){
@@ -37,6 +41,14 @@ public class Floor {
     
     public void sendRequest(String directionIn, int floorIDIn){
         processor.processFloorRequest(directionIn, floorID);
+    }
+    
+    public void getDestinationFloorsOfPeopleWaiting(){
+        //RETURN ARRAY OF INT DESTINATIONS ??
+        for(Person p : peopleWaitingOnFloor){
+            System.out.println("Dest Floor" + p.getDestinationFloor()+"\n");
+        }
+        
     }
     
     

@@ -6,6 +6,7 @@
 package com.jberry.elevatorsimulator.factories;
 
 import com.jberry.elevatorsimulator.domain.Elevator;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,11 +14,17 @@ import com.jberry.elevatorsimulator.domain.Elevator;
  */
 public class ElevatorFactory {
     
-    public static Elevator createElevator(int elevatorIDIn, long travelTimeMillsIn,
-                                   long doorActionTimeMillsIn, int maxNumberPeopleIn){
-      
-        return new Elevator(elevatorIDIn, travelTimeMillsIn, 
-                        doorActionTimeMillsIn, maxNumberPeopleIn);
-      }
+    private static ArrayList<Elevator> elevatorsCreated;
     
+    public static ArrayList<Elevator> createElevators(int numberOfElevatorsToCreate, long travelTimeMillsIn,
+                                   long doorActionTimeMillsIn, int maxNumberPeopleIn){
+      elevatorsCreated = new ArrayList<Elevator>();
+      
+      for(int i=1; i<=numberOfElevatorsToCreate; i++){
+            Elevator newElevator = new Elevator(i, travelTimeMillsIn, 
+                        doorActionTimeMillsIn, maxNumberPeopleIn);
+            elevatorsCreated.add(newElevator);
+        } 
+      return elevatorsCreated;
+    }  
 }

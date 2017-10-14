@@ -36,14 +36,15 @@ public class SimulationSettingsReader {
             long maxCapacity = (long) jsonObject.get("maxElevatorCapacity");
             long doorFunctionTimeMills = (long) jsonObject.get("doorFunctionTimeMills");
             long travelTimeMills = (long) jsonObject.get("travelTimeMills");
+            long idleTimeMills = (long) jsonObject.get("idleTimeMills");
             
             int intMaxCapacity = (int) maxCapacity;
             int intFloors = (int) numberOfFloors;
             int intElevators = (int) numberOfElevators;
             int intPeople = (int) numberOfPeople;
             
-            newSetting = new SimulatorSetting(intFloors, intElevators, intPeople,
-                                                intMaxCapacity, doorFunctionTimeMills, travelTimeMills);  
+            newSetting = new SimulatorSetting(intFloors, intElevators, intPeople,intMaxCapacity,
+                    doorFunctionTimeMills, travelTimeMills, idleTimeMills);  
            }catch(FileNotFoundException e){System.out.println("No file found.");}
             catch(IOException | ParseException e){System.out.println("IOExceptionCaught");}
        
