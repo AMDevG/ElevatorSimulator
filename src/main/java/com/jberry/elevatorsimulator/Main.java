@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.elevatorsimulation;
+package com.jberry.elevatorsimulator;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -21,7 +21,7 @@ public class Main {
      * @param args the command line arguments
      */
     
-    private static String settingsFilePath = "/Users/johnberry/NetBeansProjects/ElevatorSimulation/src/main/java/com/mycompany/elevatorsimulation/simulationSpecs.json";
+    private static String settingsFilePath = "/Users/johnberry/NetBeansProjects/ElevatorSimulatorSE450/src/main/java/com/jberry/elevatorsimulator/simulationSpecs.json";
     private static int NUMBER_OF_FLOORS;
     private static int NUMBER_OF_ELEVATORS;
     private static int NUMBER_OF_PEOPLE;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.elevatorsimulation;
+package com.jberry.elevatorsimulator;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -42,8 +42,8 @@ public class SimulationSettingsReader {
             
             newSetting = new SimulatorSetting(intFloors, intElevators, intPeople,
                                                 intMaxCapacity, doorFunctionTimeMills, travelTimeMills);  
-           }catch(FileNotFoundException e){}
-            catch(IOException | ParseException e){}
+           }catch(FileNotFoundException e){System.out.println("No file found.");}
+            catch(IOException | ParseException e){System.out.println("IOExceptionCaught");}
        
         return newSetting;
     }

@@ -3,17 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.elevatorsimulation;
+package com.jberry.elevatorsimulator;
 
 /**
  *
  * @author johnberry
  */
-public interface ElevatorInterface {    
-    void move(int destFloor);
+public class FloorFactory {
     
-    void openDoors();
-    void closeDoors();
-    int getCurrentFloor();
-    int getElevatorID();
+    public static Floor createFloor(int numberOfElevatorsIn, int floorIDIn){      
+        return new Floor(numberOfElevatorsIn, floorIDIn);
+    }
+    
 }
