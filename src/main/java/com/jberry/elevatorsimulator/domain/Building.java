@@ -40,4 +40,19 @@ public class Building {
         }
         return totalPeople; 
     }
+    
+    public ArrayList<Elevator> getElevators(){
+        return elevators;
+    }
+    public ArrayList<Floor> getFloors(){
+        return floors;
+    }
+    
+    public void update(){
+      
+      /*
+        Floor Update
+        Elevator Update
+        */
+    }
 }

@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package com.jberry.elevatorsimulator.domain;
-import com.jberry.elevatorsimulator.ElevatorInterface;
+import com.jberry.interfaces.Request;
+import com.jberry.interfaces.ElevatorInterface;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -13,9 +14,10 @@ import java.util.concurrent.TimeUnit;
  * @author johnberry
  */
 public class Elevator implements ElevatorInterface {
-    private ElevatorProcessor processor = ElevatorProcessor.getInstance();
+    private ElevatorProcessor processor;
     private int elevatorID;
     private int maxNumberPeople;
+  
     
     private ArrayList<Person> peopleInElevator;
     private ArrayList<Integer> floorsToVisit;
@@ -27,23 +29,38 @@ public class Elevator implements ElevatorInterface {
     private long doorActionTimesMills;
     private long idleTimeMills;
  
-    
     private String direction;
-    private boolean idle;
+    private boolean available;
+    private int sectorID;
 
     public Elevator(int elevatorIDIn, long travelTimeMillsIn,
                                    long doorActionTimeMillsIn, int maxNumberPeopleIn, long idleTimeMillsIn){
         elevatorID = elevatorIDIn;
         doorsOpen = false;
+        available = true;
         travelTimeMills = travelTimeMillsIn;
         currentFloor = 1;
         idleTimeMills = idleTimeMillsIn;
         floorsToVisit = new ArrayList<Integer>();
+        direction = UP_DIRECTION;  
+        peopleInElevator = new ArrayList<Person>();
     }
     
     // SIMULATING MOVEMENT
     public void move(int destFloor){
+        int movingFromFloor = currentFloor;
+        
+        //SIMULATE TIME; MOVING INSTANTLY NOW
+        
         currentFloor = destFloor;
+        System.out.println("Moving elevator "+getElevatorID()+
+                " from Floor: "+movingFromFloor+
+                " now at floor "+getCurrentFloor());        
+    }
+    
+    public void sendRequest(Request r){
+        System.out.println("Senging Request");     
+     //Pass Off Request to Processor
     }
     
     public void addFloorToVisit(int floorID){
@@ -72,11 +89,35 @@ public class Elevator implements ElevatorInterface {
     public long getIdleTime(){
         return idleTimeMills;
     }
+    public int getCurrentCapacity(){
+        return peopleInElevator.size();
+    }
     
     public ArrayList<Integer> getFloorsToVisit(){
         ArrayList<Integer>copyOfFloorsToVisit = new ArrayList<Integer>();   
         for(int floorIDOut : floorsToVisit)
             copyOfFloorsToVisit.add(floorIDOut);
         return copyOfFloorsToVisit;
+    }
+    
+    public void reAssignSector(int sectorIDIn)
+    {
+        sectorID = sectorIDIn;
+    }
+    
+    public void update(){
+        
+        /*
+        UPDATE CURRENT FLOOR FROM TIME STEP
+        UPDATE PASSENGER LIST
+        UPDATE DIRECTION
+        UPDATE FLOORS TO VISIT
+        UPDATE 
+        
+        
+        */
+        
+        
+        
     }
 }

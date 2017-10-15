@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jberry.elevatorsimulator;
+package com.jberry.interfaces;
+
+import com.jberry.elevatorsimulator.domain.CarRequest;
 
 /**
  *
  * @author johnberry
  */
-public interface ElevatorInterface {    
-    void move(int destFloor);
+public interface SchedulingAlgorithm {
     
-    void openDoors();
-    void closeDoors();
-    int getCurrentFloor();
-    int getElevatorID();
+    //NEED TO MAKE REQUESTS GENERIC
+    void handleCall(Request r);
+    
 }

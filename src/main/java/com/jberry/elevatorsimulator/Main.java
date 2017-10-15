@@ -5,15 +5,17 @@
  */
 package com.jberry.elevatorsimulator;
 
+import com.jberry.simulator.SimulationSettingsReader;
+import com.jberry.simulator.SimulatorSetting;
 import com.jberry.elevatorsimulator.domain.Building;
 import com.jberry.elevatorsimulator.domain.Person;
 import com.jberry.elevatorsimulator.domain.Elevator;
 import com.jberry.elevatorsimulator.domain.Floor;
 import com.jberry.elevatorsimulator.domain.ElevatorProcessor;
-import com.jberry.elevatorsimulator.factories.BuildingFactory;
-import com.jberry.elevatorsimulator.factories.ElevatorFactory;
-import com.jberry.elevatorsimulator.factories.FloorFactory;
-import com.jberry.elevatorsimulator.factories.PersonFactory;
+import com.jberry.factories.BuildingFactory;
+import com.jberry.factories.ElevatorFactory;
+import com.jberry.factories.FloorFactory;
+import com.jberry.factories.PersonFactory;
 
 import java.util.ArrayList;
 
@@ -34,7 +36,7 @@ public class Main {
     private static String settingsFilePath = "/Users/johnberry/NetBeansProjects/ElevatorSimulatorSE450/src/main/java/simulationsettings/simulationSpecs.json";
     private static final int LOBBY_FLOOR = 1;
     private static Building building;
-    
+   
     private static int NUMBER_OF_FLOORS;
     private static int NUMBER_OF_ELEVATORS;
     private static int NUMBER_OF_PEOPLE;
@@ -45,15 +47,31 @@ public class Main {
     private static long IDLE_TIME_MILLIS;
     
     public static void main(String[] args) {
+        //TRYING TO CREATE NEW ALGO IN ELEVATORPROCESSOR
+        //CALLING GET BUILDING WHEN BUILDING HASNT BEEN SETUP YET
         createSettings();
         setUpBuilding();
+        testDispatcher(10);
+        testDispatcher(3);
+        testDispatcher(16);
+        testDispatcher(12);
+        testDispatcher(5);
+        testDispatcher(9);
+        
+        getElevatorLocations();
     } 
     
-    private static void setUpBuilding(){
+    public static void setUpBuilding(){
+       
        ArrayList<Person> peopleEnteringBuilding = PersonFactory.createPeople(NUMBER_OF_PEOPLE, NUMBER_OF_FLOORS);
        ArrayList<Floor> buildingFloors = FloorFactory.createFloors(NUMBER_OF_FLOORS, NUMBER_OF_ELEVATORS, peopleEnteringBuilding);
        ArrayList<Elevator> buildingElevators = ElevatorFactory.createElevators(NUMBER_OF_ELEVATORS, TRAVEL_TIME_MILLIS, DOOR_TIME_MILLIS, MAX_ELEVATOR_CAPACITY, IDLE_TIME_MILLIS);
-       building = BuildingFactory.createBuilding("Standard",buildingFloors, buildingElevators);  
+       building = BuildingFactory.createBuilding("Standard",buildingFloors, buildingElevators); 
+
+    }
+    
+    public static Building getBuilding(){ //TEST CODE FIGURE OUT HOW TO SOLVE
+        return building;
     }
     
     private static void createSettings(){
@@ -66,4 +84,32 @@ public class Main {
         DOOR_TIME_MILLIS = simulationSettings.getSettingsDoorFunctionTime();
         IDLE_TIME_MILLIS = simulationSettings.getSettingsElevIdleTime();
     }
+    
+    public static void testDispatcher(int floorIn){
+        
+        ArrayList<Floor> floors = building.getFloors();
+        Floor callFloor = floors.get(floorIn);
+        if(!(callFloor.getNumberofPeopleWaiting() == 0)){
+            callFloor.sendRequest();
+        }
+        else{
+            while(callFloor.getNumberofPeopleWaiting() == 0){
+                callFloor = floors.get(floorIn++); 
+            }
+            callFloor.sendRequest();
+        }    
+    }
+    
+    public static void getElevatorLocations(){
+        
+        for(Elevator e : building.getElevators()){
+            System.out.println("Elevator: "+e.getElevatorID()+
+                                " Is on Floor "+e.getCurrentFloor()+
+                                " and has "+e.getCurrentCapacity()+
+                                " people in it. "+
+                                "------------------------------------");
+        }
+    }
+    
+
 }

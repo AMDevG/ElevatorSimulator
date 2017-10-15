@@ -5,8 +5,10 @@
  */
 package com.jberry.elevatorsimulator.domain;
 
-import com.jberry.elevatorsimulator.Processor;
-import com.jberry.elevatorsimulator.StandardElevatorProcessorImpl;
+import com.jberry.interfaces.Processor;
+import com.jberry.algorithms.*;
+import com.jberry.interfaces.Request;
+import com.jberry.interfaces.SchedulingAlgorithm;
 import java.util.ArrayList;
 
 /**
@@ -15,42 +17,24 @@ import java.util.ArrayList;
  */
 public final class ElevatorProcessor{
     
-    private Processor processorDelegate = new StandardElevatorProcessorImpl();
     private static ElevatorProcessor instance;
-    
-    private static ArrayList<Elevator> elevatorBank;
-    // CONVERT TO HASHMAP
-    //MOVE TO IMPL???
+    private final SchedulingAlgorithm scheduler = new NearestCarAlgoImpl();
+
+    private ArrayList<Floor> floors;
+    private ArrayList<Elevator> elevatorBank;
     
     private ElevatorProcessor(){}
     
     public static ElevatorProcessor getInstance(){
         if(instance == null){
             instance = new ElevatorProcessor();
-            elevatorBank = new ArrayList<Elevator>();
+            //elevatorBank = new ArrayList<Elevator>();
             return instance;
         }
         return instance;   
     }
     
-    public void processElevatorRequest(String directionIn, int elevatorIDIn){
-        processorDelegate.processElevatorRequest(directionIn, elevatorIDIn);
-    }
- 
-    public void processFloorRequest(String directionIn, int floorIDIn){
-        processorDelegate.processFloorRequest(directionIn, floorIDIn);
-    }
-    
-    public void addElevators(ArrayList<Elevator> elevators){
-        for(Elevator elevator : elevators){
-            System.out.println("Adding elevator  " + elevator.getElevatorID());
-            elevatorBank.add(elevator);
-        }
-    }
-    
-    public void sendDestinationFloor(int destFloorIn, int elevatorIDIn){
-        //NEED TO UPDATE WITH DELEGATE CODE
-        Elevator selectedElev = elevatorBank.get(elevatorIDIn);
-        selectedElev.addFloorToVisit(destFloorIn);
+    public void handleRequest(Request r){
+        scheduler.handleCall(r);
     }
 }

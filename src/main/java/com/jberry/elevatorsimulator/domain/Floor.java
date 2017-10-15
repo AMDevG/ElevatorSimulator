@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.jberry.elevatorsimulator.domain;
+import com.jberry.interfaces.Request;
 import java.util.ArrayList;
 
 /**
@@ -12,8 +13,7 @@ import java.util.ArrayList;
  */
 public class Floor {
     private final int floorID;
-    private ElevatorProcessor processor = ElevatorProcessor.getInstance();
-    
+    //private ElevatorProcessor processor; 
     private ArrayList<Person> peopleWaitingOnFloor;
     private ArrayList<Person> peopleCompletedTrips;
     
@@ -27,6 +27,12 @@ public class Floor {
        //availableElevators = elevatorsIn;
     }
     
+    public void sendRequest(){
+      //test code selecting person change!!!!
+        Person testPerson = peopleWaitingOnFloor.get(0);
+      //--------------------------------------------------//  
+        testPerson.sendRequest();
+    }
     public void addPerson(Person personIn){
         peopleWaitingOnFloor.add(personIn);
     }
@@ -37,10 +43,6 @@ public class Floor {
     
     public int getFloorID(){
         return floorID;
-    }
-    
-    public void sendRequest(String directionIn, int floorIDIn){
-        processor.processFloorRequest(directionIn, floorID);
     }
     
     public void getDestinationFloorsOfPeopleWaiting(){

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jberry.elevatorsimulator.factories;
+package com.jberry.factories;
 
 import com.jberry.elevatorsimulator.domain.Building;
 import com.jberry.elevatorsimulator.domain.Floor;

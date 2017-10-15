@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jberry.elevatorsimulator;
+package com.jberry.simulator;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

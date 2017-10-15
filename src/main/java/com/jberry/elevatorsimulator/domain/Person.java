@@ -5,6 +5,7 @@
  */
 package com.jberry.elevatorsimulator.domain;
 
+import com.jberry.interfaces.Request;
 import java.util.Random;
 
 /**
@@ -13,23 +14,38 @@ import java.util.Random;
  */
 public class Person {
     private int personID;
-    
+    private ElevatorProcessor processor;
+ 
     private long waitTime;
     private long startTime;
     private long endTime;
+    private boolean FINISHED;
     
     private boolean waiting;
     
     private int currentFloor;
     private int destinationFloor;
     
+    private String directionOfTravel;
+    
     public Person(int IDIn, int currentFloorIn, int destFloorIn){
         personID = IDIn;
         currentFloor = currentFloorIn;
         destinationFloor = destFloorIn;
-        waiting = true;
+        FINISHED = false;
+        
+        if(destinationFloor>currentFloor)
+            directionOfTravel = "UP";
+        else
+            directionOfTravel = "DOWN";
     }
-     
+
+    public void sendRequest(){
+        processor = ElevatorProcessor.getInstance();
+        Request r = new FloorRequest(currentFloor, destinationFloor, directionOfTravel);
+        processor.handleRequest(r);
+    }
+            
     public void exitElevator(){
         waiting = false;
         calculateWaitTime();
