@@ -16,6 +16,7 @@ import com.jberry.factories.BuildingFactory;
 import com.jberry.factories.ElevatorFactory;
 import com.jberry.factories.FloorFactory;
 import com.jberry.factories.PersonFactory;
+import com.jberry.simulator.SystemTimer;
 
 import java.util.ArrayList;
 
@@ -45,20 +46,25 @@ public class Main {
     private static long TRAVEL_TIME_MILLIS;
     private static long DOOR_TIME_MILLIS;
     private static long IDLE_TIME_MILLIS;
+    private static long TIME_STEP_MILLIS;
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         //TRYING TO CREATE NEW ALGO IN ELEVATORPROCESSOR
         //CALLING GET BUILDING WHEN BUILDING HASNT BEEN SETUP YET
-        createSettings();
-        setUpBuilding();
-        testDispatcher(10);
-        testDispatcher(3);
-        testDispatcher(16);
-        testDispatcher(12);
-        testDispatcher(5);
-        testDispatcher(9);
+//        createSettings();
+//        setUpBuilding();
+//        testDispatcher(10);
+//        testDispatcher(3);
+//        testDispatcher(16);
+//        testDispatcher(12);
+//        testDispatcher(5);
+//        testDispatcher(9);
+//        
+//        getElevatorLocations();
+
+          SystemTimer simulationTimer = new SystemTimer(2000);
+          simulationTimer.startTimer();
         
-        getElevatorLocations();
     } 
     
     public static void setUpBuilding(){
@@ -83,6 +89,7 @@ public class Main {
         TRAVEL_TIME_MILLIS = simulationSettings.getSettingsElevTravelTime();
         DOOR_TIME_MILLIS = simulationSettings.getSettingsDoorFunctionTime();
         IDLE_TIME_MILLIS = simulationSettings.getSettingsElevIdleTime();
+        TIME_STEP_MILLIS = simulationSettings.getSettingsElevIdleTime();
     }
     
     public static void testDispatcher(int floorIn){

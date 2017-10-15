@@ -36,6 +36,7 @@ public class SimulationSettingsReader {
             long doorFunctionTimeMills = (long) jsonObject.get("doorFunctionTimeMills");
             long travelTimeMills = (long) jsonObject.get("travelTimeMills");
             long idleTimeMills = (long) jsonObject.get("idleTimeMills");
+            long timeStepMills = (long) jsonObject.get("timeStepMills");
             
             int intMaxCapacity = (int) maxCapacity;
             int intFloors = (int) numberOfFloors;
