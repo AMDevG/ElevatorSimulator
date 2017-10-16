@@ -12,18 +12,17 @@ import java.util.ArrayList;
  * @author johnberry
  */
 public class Floor {
-    private final int floorID;
-    //private ElevatorProcessor processor; 
-    private ArrayList<Person> peopleWaitingOnFloor;
-    private ArrayList<Person> peopleCompletedTrips;
     
+    private final int floorID;
+    private ArrayList<Person> peopleWaitingOnFloor;
+    private ArrayList<Person> completedPassengers;
     private ArrayList<Elevator> availableElevators;
    
     //REPLACE elevatorCount with ArrayList<Elevator>elevatorsIn 
     public Floor(int floorIDIn, int elevatorCount, ArrayList<Person>peopleIn){
        floorID = floorIDIn;    
        peopleWaitingOnFloor = peopleIn;
-       peopleCompletedTrips = new ArrayList<Person>();
+       completedPassengers = new ArrayList<Person>();
        //availableElevators = elevatorsIn;
     }
     

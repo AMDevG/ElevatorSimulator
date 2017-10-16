@@ -5,6 +5,9 @@
  */
 package com.jberry.simulator;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author johnberry
@@ -12,67 +15,103 @@ package com.jberry.simulator;
 public class SystemTimer {
     public static final long MILLISECONDS_PER_SECOND = 1000;
     public static final long MILLISECONDS_PER_MINUTE = 60000;
-  
-    private long timeSimulated;
-    private long timeStart;
+    
+    private static String logMessage; //Create class for?
+    private static long simulationTimeElapsedMillis;
+    public long objectElapsedMillis;
+    
+    private final long timeStep;
+    
+        
+    private static long timeStart;
     private long timeNow;
-    private long timeStep;
-    private long timeElapsed;
-    private boolean simulationOver;
+    private boolean simulatorRunning; 
+    private static String stepTimeStamp;
     
-    private String stepTimeStamp;
-    
-    public SystemTimer(long timeStepIn){
-        timeSimulated = 0;
+    public SystemTimer(long timeStepIn){   
+        
+        simulationTimeElapsedMillis = 0;
         timeStep = timeStepIn;
-        System.out.println("Time step is "+timeStep);
-        simulationOver = false;
+        System.out.println("Created Timer with timeInterval of "+timeStep+" millis.");
+        simulatorRunning = false;
+        objectElapsedMillis = (long) 0.0;
     }
  
     public void startTimer() throws InterruptedException{
+        System.out.println("Started system timer");
         timeStart = System.currentTimeMillis();
-   
-        while(!simulationOver){
-            if (getTimeElapsed()>10000){stopTimer();}
-            step();
-            System.out.println("Going to sleep");
-            Thread.sleep(timeStep);
-        }
+        simulatorRunning = true;
     }
-    
-    public long getTimeElapsed(){
-       timeNow = System.currentTimeMillis();
-       timeElapsed = timeNow - timeStart;
-       return timeElapsed;
-    }
-    
-    
+
     public void step(){
-        timeSimulated = timeSimulated + timeStep;
-        System.out.println("Time elapsed " + getTimeElapsed());
-        stepTimeStamp = formatTimeStamp(timeSimulated);
+        
+        while(simulatorRunning){
+            //UPDATE CODE
+            simulationTimeElapsedMillis = simulationTimeElapsedMillis + timeStep;
+            System.out.println("Performed Step. Total Simulation Time: "+ (simulationTimeElapsedMillis/1000.0));
+            System.out.println("Going to sleep for: "+timeStep+" seconds.");
+            
+            try {
+                Thread.sleep(timeStep);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(SystemTimer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        //System.out.println("Time elapsed " + getTimeElapsed());    
     }
     
     public void stopTimer(){
+        System.out.println("Timer stopped.");
         timeNow = System.currentTimeMillis();
-        timeElapsed = timeStart - timeNow;
-        simulationOver = true;
-        System.out.println("Simulator Ended ");
-        formatTimeStamp(timeElapsed);
-        
+        simulatorRunning = false;
+        simulationTimeElapsedMillis = timeStart - timeNow;
     }
 
-    public String formatTimeStamp(long timeInMills){
+    public long getTimeStepMills(){
+        return timeStep;
+    }
+    
         
-        double timeSeconds = timeInMills/MILLISECONDS_PER_SECOND;
+    public static long getElapsedTimeMills(){
+       return simulationTimeElapsedMillis;
+    }
+    
+    //logger sends request for time related logs
+    public static String getTimerLog(){
+        logMessage = formatTimeStamp(getElapsedTimeMills());
+        return logMessage;
+    }
+    
+    public static String getTimeStamp(){
+        
+        long now = System.currentTimeMillis();
+        long start = SystemTimer.timeStart;
+ 
+        long t = now - start;
+        
+        System.out.println("ellapsed mills = " + t);
+        
+        return "";
+        //return timeStampToReturn;
+    }
+             
+    public static String formatTimeStamp(long elapsedMillisIn){
+        //ERROR ERROR ERROR formatter receiving 0
+        System.out.println("Formatter received " + elapsedMillisIn);
+        double timeSeconds = elapsedMillisIn/MILLISECONDS_PER_SECOND;
         double hoursElapsed = timeSeconds / (60.0 * 60.0);
         double minsElapsed = 60 * (hoursElapsed - (int)hoursElapsed);
         double secsElapsed = 60 * (minsElapsed - (int)minsElapsed);
         
+        System.out.println("Formatting, Double Seconds are " +secsElapsed);
+        
         int hour = (int)hoursElapsed;
         int min = (int)minsElapsed;
         int sec = (int)secsElapsed;
+        System.out.println("Formatting, Int Seconds are " +sec);
+        stepTimeStamp = (hour < 10 ? "0" + hour : hour) + ":" + (min < 10 ? "0" + min : min) + ":" + (sec < 10 ? "0" + sec : sec);
         
-        return (hour < 10 ? "0" + hour : hour) + ":" + (min < 10 ? "0" + min : min) + ":" + (sec < 10 ? "0" + sec : sec);
+        return stepTimeStamp;
     }
 }

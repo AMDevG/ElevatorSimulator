@@ -18,10 +18,12 @@ public class SimulatorSetting{
     private final long doorTimeMills;
     private final long travelTimeMills;
     private final long idleTimeMills;
+    private final long timeStepMills;
     
     
     public SimulatorSetting(int floorsIn, int elevatorsIn, int peopleIn, int elevCapacityIn,
-                            long doorTimeMillsIn, long travelTimeMillsIn, long idleTimeMillsIn){
+                            long doorTimeMillsIn, long travelTimeMillsIn, long idleTimeMillsIn,
+                            long timeStepMillsIn){
         floors = floorsIn;
         elevators = elevatorsIn;
         people = peopleIn;
@@ -29,6 +31,7 @@ public class SimulatorSetting{
         doorTimeMills = doorTimeMillsIn;
         travelTimeMills = travelTimeMillsIn;
         idleTimeMills = idleTimeMillsIn;
+        timeStepMills = timeStepMillsIn;
     }
     
     public int getSettingsFloorCount(){return floors;}
@@ -38,5 +41,6 @@ public class SimulatorSetting{
     public long getSettingsDoorFunctionTime(){return doorTimeMills;}
     public long getSettingsElevTravelTime(){return travelTimeMills;}
     public long getSettingsElevIdleTime(){return idleTimeMills;}
+    public long getTimeStepMills(){return timeStepMills;}
      
 }

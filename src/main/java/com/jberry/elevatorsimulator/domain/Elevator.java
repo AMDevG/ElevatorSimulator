@@ -4,16 +4,22 @@
  * and open the template in the editor.
  */
 package com.jberry.elevatorsimulator.domain;
+import com.jberry.factories.LogFactory;
 import com.jberry.interfaces.Request;
 import com.jberry.interfaces.ElevatorInterface;
+import com.jberry.simulator.SystemTimer;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+import com.jberry.interfaces.Log;
+import com.jberry.interfaces.Loggable;
+import com.jberry.simulator.Simulator;
+import com.jberry.simulator.logging.ActivityLogger;
 
 /**
  *
  * @author johnberry
  */
-public class Elevator implements ElevatorInterface {
+public class Elevator implements ElevatorInterface, Loggable {
     private ElevatorProcessor processor;
     private int elevatorID;
     private int maxNumberPeople;
@@ -55,8 +61,9 @@ public class Elevator implements ElevatorInterface {
         currentFloor = destFloor;
         System.out.println("Moving elevator "+getElevatorID()+
                 " from Floor: "+movingFromFloor+
-                " now at floor "+getCurrentFloor());        
+                " now at floor "+getCurrentFloor());  
     }
+    
     
     public void sendRequest(Request r){
         System.out.println("Senging Request");     
@@ -73,6 +80,10 @@ public class Elevator implements ElevatorInterface {
         } 
     }
     public void openDoors(){
+        String timeStamp = SystemTimer.getTimeStamp();
+        System.out.println("In OpenDoors received timestamp:  "+timeStamp);
+        Log logToSend = LogFactory.createNewLog(getElevatorID(), getCurrentFloor(), timeStamp, Event.DOORS_OPEN);
+        ActivityLogger.displayLog(logToSend);
     }
     
     public void closeDoors(){

@@ -18,6 +18,8 @@ public interface ElevatorInterface {
     public final String DOWN_DIRECTION = "DOWN";
     public final String IDLE_STATUS = "IDLE";
     
+    public final String EVENT_TYPE = "ELEVATOR";
+    
     
     void openDoors();
     void closeDoors();

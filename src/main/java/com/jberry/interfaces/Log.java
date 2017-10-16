@@ -9,6 +9,9 @@ package com.jberry.interfaces;
  *
  * @author johnberry
  */
-public interface Updateable {
+public interface Log extends Loggable{
+
+    
+    public String getMessage();
     
 }
