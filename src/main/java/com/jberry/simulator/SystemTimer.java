@@ -18,7 +18,7 @@ public class SystemTimer {
     
     private static String logMessage; //Create class for?
     private static long simulationTimeElapsedMillis;
-    public long objectElapsedMillis;
+    public static long tCalc;
     
     private final long timeStep;
     
@@ -34,7 +34,6 @@ public class SystemTimer {
         timeStep = timeStepIn;
         System.out.println("Created Timer with timeInterval of "+timeStep+" millis.");
         simulatorRunning = false;
-        objectElapsedMillis = (long) 0.0;
     }
  
     public void startTimer() throws InterruptedException{
@@ -47,6 +46,8 @@ public class SystemTimer {
         
         while(simulatorRunning){
             //UPDATE CODE
+            
+            
             simulationTimeElapsedMillis = simulationTimeElapsedMillis + timeStep;
             System.out.println("Performed Step. Total Simulation Time: "+ (simulationTimeElapsedMillis/1000.0));
             System.out.println("Going to sleep for: "+timeStep+" seconds.");
@@ -83,22 +84,26 @@ public class SystemTimer {
         return logMessage;
     }
     
-    public static String getTimeStamp(){
+    public static String getTimeStamp() throws InterruptedException{
+        
+        Thread.sleep(10000);
         
         long now = System.currentTimeMillis();
         long start = SystemTimer.timeStart;
- 
-        long t = now - start;
+        tCalc = (long) now - start;
         
-        System.out.println("ellapsed mills = " + t);
-        
-        return "";
-        //return timeStampToReturn;
+        System.out.println("Now is "+now);
+        System.out.println("Start in New var is "+start);
+        System.out.println("Start in Static is "+SystemTimer.timeStart);
+
+        return formatTimeStamp(tCalc);
     }
              
     public static String formatTimeStamp(long elapsedMillisIn){
-        //ERROR ERROR ERROR formatter receiving 0
-        System.out.println("Formatter received " + elapsedMillisIn);
+        //ERROR ERROR ERROR formatter receiving 
+        System.out.println("Formatter received ");
+        System.out.println(elapsedMillisIn);
+        
         double timeSeconds = elapsedMillisIn/MILLISECONDS_PER_SECOND;
         double hoursElapsed = timeSeconds / (60.0 * 60.0);
         double minsElapsed = 60 * (hoursElapsed - (int)hoursElapsed);

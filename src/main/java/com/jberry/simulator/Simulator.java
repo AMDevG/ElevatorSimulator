@@ -50,7 +50,6 @@ public class Simulator {
             //System.out.println(test);
             
             System.out.println("Going to Sleep now");
-            
             Thread.sleep(timeStepMills);
         }
     }
@@ -62,8 +61,8 @@ public class Simulator {
         System.out.println("Started timer.");
         
         System.out.println("Starting time step.");
-        timer.step();
-        System.out.println("Time step started. Simulation fully running."+"\n"+
+        //timer.step();
+        System.out.println("Time step not started. Simulation fully running."+"\n"+
                            " Heading back to Main");
     }
     

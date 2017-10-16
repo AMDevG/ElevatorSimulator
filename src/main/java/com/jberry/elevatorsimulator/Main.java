@@ -57,16 +57,18 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         createSettings();
         setUpBuilding();
-        System.out.println("Settings processed."+"\n"+"Building and components constructed");
+        //System.out.println("Settings processed."+"\n"+"Building and components constructed");
         
         createSimulatorComponents();
-        System.out.println(" Simulator and its components built"+"\n"+
-                           " Starting simulation now.");
+        
+        /*System.out.println(" Simulator and its components built"+"\n"+
+                           " Starting simulation now.");*/
 
         simulator.startSimulation();
         
         System.out.println("Back in main. About to call TestLoggin.");
         
+        testLoggin();
         testLoggin();
  
         
