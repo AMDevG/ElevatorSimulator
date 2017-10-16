@@ -23,23 +23,6 @@ public class Building {
         floors = floorsIn;
         elevators = elevatorsIn;
     }
-   
-    public int getFloorCount(){
-        return floors.size();
-    }
-    public int getElevatorCount(){
-        return elevators.size();
-    }
-    
-    public int getPeopleInBuildingCount(){
-        int totalPeople = 0;
-        
-        for(Floor f: floors){
-            int pplWaiting = f.getNumberofPeopleWaiting();
-            totalPeople = totalPeople + pplWaiting;
-        }
-        return totalPeople; 
-    }
     
     public ArrayList<Elevator> getElevators(){
         return elevators;
@@ -47,12 +30,18 @@ public class Building {
     public ArrayList<Floor> getFloors(){
         return floors;
     }
-    
-    public void update(){
-      
-      /*
-        Floor Update
-        Elevator Update
-        */
+    public int getFloorCount(){
+        return floors.size();
+    }
+    public int getElevatorCount(){
+        return elevators.size();
+    }
+    public int getPeopleInBuildingCount(){
+        int totalPeople = 0;
+        for(Floor f: floors){
+            int pplWaiting = f.getNumberofPeopleWaiting();
+            totalPeople = totalPeople + pplWaiting;
+        }
+        return totalPeople; 
     }
 }

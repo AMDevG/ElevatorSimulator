@@ -8,6 +8,9 @@ package com.jberry.simulator;
 import com.jberry.simulator.logging.ActivityLogger;
 import com.jberry.elevatorsimulator.Main;
 import com.jberry.elevatorsimulator.domain.Building;
+import com.jberry.elevatorsimulator.domain.Elevator;
+import com.jberry.elevatorsimulator.domain.Floor;
+import java.util.ArrayList;
 
 
 /**
@@ -17,66 +20,43 @@ import com.jberry.elevatorsimulator.domain.Building;
 public class Simulator {
     
     private final Building building;
-    
-    private final ActivityLogger logger;
-    private final long timeStepMills;
-    /* TIMER DATA */
-    
     private final SystemTimer timer;
+    private final ActivityLogger logger;
+    
+    private final long timeStepMills;
     private boolean simulatorRunning;
     private long simulatorRunTime;
     private String timeStamp;
-    private String activityLogUpdate;
-   
     
+    private static ArrayList<Floor> floors;
+    private static ArrayList<Elevator> elevators;
+
     public Simulator(ActivityLogger loggerIn, SystemTimer timerIn){
         logger = loggerIn;
-        building = Main.getBuilding(); //MOVE OUT OF MAIN
         timer = timerIn;
-        simulatorRunning = false;
         timeStepMills = timer.getTimeStepMills();
-    }
-    
-    public void step() throws InterruptedException{
-        System.out.println("Beginning Step Code");
-        
-        while(simulatorRunning){
-            //update objects
-            System.out.println("Updating object movement");
-            
-            //activityLogUpdate = logger.updateLog();
-            //String test = logger.logTimeStep(timeStamp);
-            
-            //System.out.println(test);
-            
-            System.out.println("Going to Sleep now");
-            Thread.sleep(timeStepMills);
-        }
+        building = Main.getBuilding(); //MOVE OUT OF MAIN
+        floors = building.getFloors();
+        elevators = building.getElevators();
+        simulatorRunning = false;
     }
     
     public void startSimulation() throws InterruptedException{
         simulatorRunning = true;
-        System.out.println("Starting simulation; Simulator Running");
         timer.startTimer();
-        System.out.println("Started timer.");
-        
-        System.out.println("Starting time step.");
-        //timer.step();
-        System.out.println("Time step not started. Simulation fully running."+"\n"+
-                           " Heading back to Main");
+        timer.step();
     }
     
     public void stopSimulation(){
         simulatorRunning = false;
         timer.stopTimer();
-        //timeStamp = timer.formatTimeStamp(timer.getTimeElapsed());
-       // logger.logSimulatorStop(timeStamp);
-        
     }
    
-    public void updateSimulation(){
-        System.out.println("Updating Simulation Objects");
+    public static void updateSimulation(){
+        for(Elevator e : elevators){
+            e.update();
+        } 
     }
-   }
+}
     
 

@@ -5,13 +5,14 @@
  */
 package com.jberry.elevatorsimulator.domain;
 import com.jberry.interfaces.Request;
+import com.jberry.interfaces.UpdateAble;
 import java.util.ArrayList;
 
 /**
  *
  * @author johnberry
  */
-public class Floor {
+public class Floor implements UpdateAble {
     
     private final int floorID;
     private ArrayList<Person> peopleWaitingOnFloor;
@@ -32,6 +33,7 @@ public class Floor {
       //--------------------------------------------------//  
         testPerson.sendRequest();
     }
+    
     public void addPerson(Person personIn){
         peopleWaitingOnFloor.add(personIn);
     }
@@ -48,9 +50,10 @@ public class Floor {
         //RETURN ARRAY OF INT DESTINATIONS ??
         for(Person p : peopleWaitingOnFloor){
             System.out.println("Dest Floor" + p.getDestinationFloor()+"\n");
-        }
-        
+        }  
     }
     
-    
+    public void update(){
+        System.out.println("Updating Floors");
+    }  
 }

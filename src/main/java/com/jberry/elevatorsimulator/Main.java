@@ -57,46 +57,17 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         createSettings();
         setUpBuilding();
-        //System.out.println("Settings processed."+"\n"+"Building and components constructed");
-        
         createSimulatorComponents();
-        
-        /*System.out.println(" Simulator and its components built"+"\n"+
-                           " Starting simulation now.");*/
-
         simulator.startSimulation();
-        
-        System.out.println("Back in main. About to call TestLoggin.");
-        
-        testLoggin();
-        testLoggin();
- 
-        
-        //Thread.sleep(10000); //run simulator for ten seconds
-        //simulator.stopSimulation();
-             
-//        testDispatcher(10);
-//        testDispatcher(3);
-//        testDispatcher(16);
-//        testDispatcher(12);
-//        testDispatcher(5);
-//        testDispatcher(9);
-//        
-//        getElevatorLocations();
-
-          
-        
+        testLoggin();    
     } 
     
     public static void setUpBuilding(){
-       
        ArrayList<Person> peopleEnteringBuilding = PersonFactory.createPeople(NUMBER_OF_PEOPLE, NUMBER_OF_FLOORS);
        ArrayList<Floor> buildingFloors = FloorFactory.createFloors(NUMBER_OF_FLOORS, NUMBER_OF_ELEVATORS, peopleEnteringBuilding);
        ArrayList<Elevator> buildingElevators = ElevatorFactory.createElevators(NUMBER_OF_ELEVATORS, TRAVEL_TIME_MILLIS, DOOR_TIME_MILLIS, MAX_ELEVATOR_CAPACITY, IDLE_TIME_MILLIS);
        building = BuildingFactory.createBuilding("Standard",buildingFloors, buildingElevators); 
-
     }
-    
     
     private static void createSettings(){
         SimulatorSetting simulationSettings = SimulationSettingsReader.parseSimulationSettings(settingsFilePath); //ACCEPT PARAMS OF FILE PATH
@@ -120,9 +91,7 @@ public class Main {
         return building;
     }
  
-    
     public static void testDispatcher(int floorIn){
-        
         ArrayList<Floor> floors = building.getFloors();
         Floor callFloor = floors.get(floorIn);
         if(!(callFloor.getNumberofPeopleWaiting() == 0)){
@@ -137,20 +106,17 @@ public class Main {
     }
     
     public static void getElevatorLocations(){
-        
         for(Elevator e : building.getElevators()){
             System.out.println("Elevator: "+e.getElevatorID()+
                                 " Is on Floor "+e.getCurrentFloor()+
                                 " and has "+e.getCurrentCapacity()+
                                 " people in it. "+
                                 "------------------------------------");
-        }
+            }
     }
    
     public static void testLoggin(){
-        
         ArrayList<Elevator> elevators = building.getElevators();
-        
         Elevator e1 = elevators.get(0);
         Elevator e2 = elevators.get(1);
         Elevator e3 = elevators.get(2);

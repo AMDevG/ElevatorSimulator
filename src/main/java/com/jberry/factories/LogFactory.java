@@ -19,16 +19,20 @@ public class LogFactory implements Loggable {
     private static String logDetail;
     private static String logMessage;
     private static Log log;
-    
-////SEND TYPE IN CONSTRUCTOR
+
     public LogFactory(){}
+    ///CTOR WONT WORK FOR ALL EVENT TYPES
+    ///DIFFERENT EVENTS REQUIRE DIFFERENT PARAMS
+    //HAVE TO OVERLOAD CTOR
     
-    public static Log createNewLog(int senderID, int senderCurrentFloor, String timeStampIn, Event eventIn){
-        ///WONT WORK FOR ALL CALLS MULTIPLE CONSTRUCTORS NEEDED, BASED ON PARAMETERS
-      
+    public static Log createNewLog(int senderID, int senderCurrentFloor,int senderDestFloor, String timeStampIn, Event eventIn){
         switch(eventIn){
-            case ELEVATOR_DISPATCHED:
-                logDetail = "";
+            case HANDLING_RIDER_REQUEST:
+                timeStamp = timeStampIn;
+                logFrom = "    Elevator "+senderID;
+                logDetail = "is moving from " +senderCurrentFloor +"\n to Floor "+senderDestFloor;
+                logMessage = timeStamp + logFrom + logDetail;
+                log = new ElevatorLog(logMessage);
                 break;
                 
             case DOORS_OPEN:
@@ -39,11 +43,10 @@ public class LogFactory implements Loggable {
                 log = new ElevatorLog(logMessage);
                 break;         
             }
-        
         return log;
-       
-        
-/*CREAT INTERFACE FOR HANDLING UPDATE LOGS FOR TYPES:
+    }
+    
+    /*CREAT INTERFACE FOR HANDLING UPDATE LOGS FOR TYPES:
     
     Floor:
     
@@ -77,5 +80,5 @@ public class LogFactory implements Loggable {
         PersonExitingElevator
             00:04:52 Person P18 has left Elevator 4 [Riders: P13] 
    */ 
-    }
+    
 }

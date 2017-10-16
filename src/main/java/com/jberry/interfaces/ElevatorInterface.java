@@ -11,7 +11,7 @@ import com.jberry.elevatorsimulator.domain.CarRequest;
  *
  * @author johnberry
  */
-public interface ElevatorInterface {    
+public interface ElevatorInterface extends Loggable {    
     void move(int destFloor);
     
     public final String UP_DIRECTION = "UP";

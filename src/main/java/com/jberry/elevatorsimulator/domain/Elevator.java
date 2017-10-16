@@ -9,7 +9,7 @@ import com.jberry.interfaces.Request;
 import com.jberry.interfaces.ElevatorInterface;
 import com.jberry.simulator.SystemTimer;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
+
 import com.jberry.interfaces.Log;
 import com.jberry.interfaces.Loggable;
 import com.jberry.simulator.Simulator;
@@ -19,12 +19,11 @@ import com.jberry.simulator.logging.ActivityLogger;
  *
  * @author johnberry
  */
-public class Elevator implements ElevatorInterface, Loggable {
+public class Elevator implements ElevatorInterface {
     private ElevatorProcessor processor;
     private int elevatorID;
     private int maxNumberPeople;
   
-    
     private ArrayList<Person> peopleInElevator;
     private ArrayList<Integer> floorsToVisit;
     
@@ -38,6 +37,8 @@ public class Elevator implements ElevatorInterface, Loggable {
     private String direction;
     private boolean available;
     private int sectorID;
+    
+    private int testStop = 10;
 
     public Elevator(int elevatorIDIn, long travelTimeMillsIn,
                                    long doorActionTimeMillsIn, int maxNumberPeopleIn, long idleTimeMillsIn){
@@ -52,22 +53,32 @@ public class Elevator implements ElevatorInterface, Loggable {
         peopleInElevator = new ArrayList<Person>();
     }
     
-    // SIMULATING MOVEMENT
+    //REAL SIMULATION: floorsPerUpdate = timeStep/travelTime
+    /*MOVE LOGGER CODE INTO FACADE? LOGGER.LOG */
     public void move(int destFloor){
-        int movingFromFloor = currentFloor;
-        
-        //SIMULATE TIME; MOVING INSTANTLY NOW
-        
-        currentFloor = destFloor;
-        System.out.println("Moving elevator "+getElevatorID()+
-                " from Floor: "+movingFromFloor+
-                " now at floor "+getCurrentFloor());  
+        currentFloor++;
+        String timeStamp = SystemTimer.getTimeStamp();
+        if(currentFloor != destFloor){
+            int movingFromFloor = currentFloor;
+            Log logToSend = LogFactory.createNewLog(getElevatorID(), getCurrentFloor(),destFloor, timeStamp, Event.HANDLING_RIDER_REQUEST);
+            ActivityLogger.displayLog(logToSend);
+        }
+        else{
+            /** "HANDLED REQUEST" LOG*/
+            openDoors();
+        }
     }
     
-    
     public void sendRequest(Request r){
-        System.out.println("Senging Request");     
-     //Pass Off Request to Processor
+        //UNUSED PART OF ELEVATOR INTERFACE 
+    }
+    public void openDoors(){
+        String timeStamp = SystemTimer.getTimeStamp();
+        Log logToSend = LogFactory.createNewLog(getElevatorID(), getCurrentFloor(),0, timeStamp, Event.DOORS_OPEN);
+        ActivityLogger.displayLog(logToSend);
+    }
+    
+    public void closeDoors(){
     }
     
     public void addFloorToVisit(int floorID){
@@ -78,15 +89,6 @@ public class Elevator implements ElevatorInterface, Loggable {
         for(int i : floorsToVisit){
             System.out.println("Floor: " + i);
         } 
-    }
-    public void openDoors(){
-        String timeStamp = SystemTimer.getTimeStamp();
-        System.out.println("In OpenDoors received timestamp:  "+timeStamp);
-        Log logToSend = LogFactory.createNewLog(getElevatorID(), getCurrentFloor(), timeStamp, Event.DOORS_OPEN);
-        ActivityLogger.displayLog(logToSend);
-    }
-    
-    public void closeDoors(){
     }
     
     public int getCurrentFloor(){
@@ -111,24 +113,17 @@ public class Elevator implements ElevatorInterface, Loggable {
         return copyOfFloorsToVisit;
     }
     
-    public void reAssignSector(int sectorIDIn)
-    {
-        sectorID = sectorIDIn;
-    }
+    public void reAssignSector(int sectorIDIn){sectorID = sectorIDIn;}
     
     public void update(){
-        
-        /*
-        UPDATE CURRENT FLOOR FROM TIME STEP
-        UPDATE PASSENGER LIST
-        UPDATE DIRECTION
-        UPDATE FLOORS TO VISIT
-        UPDATE 
-        
-        
-        */
-        
-        
-        
-    }
+        //CALL PROCESSOR TO GET NEXT STEP?
+        //REPLACE WITH ELEVATOR LOGIC?
+        //CHECK IF MOVING OR RESPONDING IF NOT MAKE IDLE??
+        if(getCurrentFloor()!=testStop)
+            move(testStop);
+        else{
+            //openDoors();
+            //MARK AS AVAILABLE?
+        } 
+    }   
 }

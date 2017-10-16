@@ -9,9 +9,8 @@ package com.jberry.interfaces;
  *
  * @author johnberry
  */
-public interface Request {
-    public int getID();
-    public String getDirection();
-    public int getDestinationID();
-    public String getCallSender();
+public interface UpdateAble {
+    
+    void update();
+    
 }
