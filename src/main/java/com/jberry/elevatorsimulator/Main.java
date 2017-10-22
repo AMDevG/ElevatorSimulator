@@ -58,8 +58,9 @@ public class Main {
         createSettings();
         setUpBuilding();
         createSimulatorComponents();
+        
         simulator.startSimulation();
-        testLoggin();    
+          
     } 
     
     public static void setUpBuilding(){
@@ -70,7 +71,7 @@ public class Main {
     }
     
     private static void createSettings(){
-        SimulatorSetting simulationSettings = SimulationSettingsReader.parseSimulationSettings(settingsFilePath); //ACCEPT PARAMS OF FILE PATH
+        SimulatorSetting simulationSettings = SimulationSettingsReader.getInstance().parseSimulationSettings(settingsFilePath);
         NUMBER_OF_FLOORS = simulationSettings.getSettingsFloorCount();
         NUMBER_OF_ELEVATORS = simulationSettings.getSettingsElevatorCount();
         NUMBER_OF_PEOPLE = simulationSettings.getSettingsPeopleCount();
@@ -85,6 +86,11 @@ public class Main {
         ActivityLogger logger = new ActivityLogger();
         SystemTimer timer = new SystemTimer(TIME_STEP_MILLIS);
         simulator = new Simulator(logger, timer);
+        
+        ElevatorDisplay.getInstance().initialize(NUMBER_OF_FLOORS);
+        for (int i = 1; i <= NUMBER_OF_ELEVATORS; i++) {
+            ElevatorDisplay.getInstance().addElevator(i, 1);
+        }  
     }
     
     public static Building getBuilding(){ //TEST CODE FIGURE OUT HOW TO SOLVE
@@ -115,16 +121,21 @@ public class Main {
             }
     }
    
-    public static void testLoggin(){
-        ArrayList<Elevator> elevators = building.getElevators();
-        Elevator e1 = elevators.get(0);
-        Elevator e2 = elevators.get(1);
-        Elevator e3 = elevators.get(2);
-        
-        e1.move(10);
-        e1.openDoors();
-        
-        
-    }
+    private static void moveElevator(int elevNum, int fromFloor, int toFloor) throws InterruptedException {
+        int numRiders = (int) (11.0 * Math.random()) + 1;
 
+        ElevatorDisplay.getInstance().closeDoors(elevNum);
+        if (fromFloor < toFloor) {
+            for (int i = fromFloor; i <= toFloor; i++) {
+                ElevatorDisplay.getInstance().updateElevator(elevNum, i, numRiders, UP);
+                Thread.sleep(80);
+            }
+        } else {
+            for (int i = fromFloor; i >= toFloor; i--) {
+                ElevatorDisplay.getInstance().updateElevator(elevNum, i, numRiders, DOWN);
+                Thread.sleep(80);
+            }
+        }
+        ElevatorDisplay.getInstance().openDoors(elevNum);
+    }
 }

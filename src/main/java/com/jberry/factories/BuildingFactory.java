@@ -24,7 +24,8 @@ public class BuildingFactory {
     //CREATE TO DYNAMICALLY ALLOW DIFFERENT BUILDING TYPES THROUGH IMPL; TYPE INPUT
     public static Building createBuilding(String type, ArrayList<Floor> floorsIn, ArrayList<Elevator> elevatorsIn){
         
-        Building building = new Building(floorsIn, elevatorsIn);
+        Building building = Building.getInstance();
+        building.setFloors(floorsIn, elevatorsIn);
         return building; 
     }
 }

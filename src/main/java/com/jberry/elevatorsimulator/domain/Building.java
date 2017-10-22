@@ -5,23 +5,45 @@
  */
 package com.jberry.elevatorsimulator.domain;
 
+import com.jberry.factories.FloorFactory;
+import com.jberry.simulator.SimulatorSetting;
 import java.util.ArrayList;
 
 /**
  *
  * @author johnberry
  */
-public class Building {
+public final class Building {
     
-    private static int numberOfFloors;
-    private static int numberOfElevators;
+    private static int numberOfFloors = SimulatorSetting.getSettingsFloorCount();
+    private static int numberOfElevators = SimulatorSetting.getSettingsElevatorCount();
+    private static long timeStep = SimulatorSetting.getTimeStepMills();
+    
+    private static Building instance;
     
     private static ArrayList<Floor> floors;
     private static ArrayList<Elevator> elevators;
 
-    public Building(ArrayList<Floor>floorsIn, ArrayList<Elevator>elevatorsIn){
+   /* public Building(ArrayList<Floor>floorsIn, ArrayList<Elevator>elevatorsIn){
         floors = floorsIn;
         elevators = elevatorsIn;
+    }*/
+    
+    private Building(){}
+    
+    public static Building getInstance(){
+        
+        if(instance == null){
+            instance = new Building();
+            return instance;
+        }
+        return instance; 
+    }
+    
+    public static void update(long time){
+        for (Elevator e : elevators){
+            e.update(time);
+        }
     }
     
     public ArrayList<Elevator> getElevators(){
@@ -44,4 +66,14 @@ public class Building {
         }
         return totalPeople; 
     }
+    
+    public static void setFloors(ArrayList<Floor> floorsIn, ArrayList<Elevator> elevatorsIn){
+        floors = floorsIn;
+        elevators = elevatorsIn;
+    }
+    
+    public void floorButtonPress(int elevatorID, int floorID, String direction){
+        elevators.get(elevatorID - 1).addFloorToVisit(floorID, direction);
+    }
+    
 }

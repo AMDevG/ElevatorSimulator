@@ -5,6 +5,7 @@
  */
 package com.jberry.simulator;
 
+import com.jberry.elevatorsimulator.domain.Building;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,7 +32,6 @@ public class SystemTimer {
         
         simulationTimeElapsedMillis = 0;
         timeStep = timeStepIn;
-        System.out.println("Created Timer with timeInterval of "+timeStep+" millis.");
         simulatorRunning = false;
     }
  
@@ -43,10 +43,18 @@ public class SystemTimer {
 
     public void step(){
         while(simulatorRunning){
-            Simulator.updateSimulation(); 
+            
             simulationTimeElapsedMillis = simulationTimeElapsedMillis + timeStep;
+            
+            if (simulationTimeElapsedMillis == 4000){
+                Building.getInstance().floorButtonPress(2, 6, "UP");
+            }
+            
+            Building.getInstance().update(timeStep);
+            
             System.out.println("Performed Step. Total Simulation Time: "+ (simulationTimeElapsedMillis/1000.0));
             System.out.println("-----------------------------------");
+            
             try {
                 Thread.sleep(timeStep);
             } catch (InterruptedException ex) {

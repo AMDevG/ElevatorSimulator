@@ -12,7 +12,7 @@ import com.jberry.elevatorsimulator.domain.CarRequest;
  * @author johnberry
  */
 public interface ElevatorInterface extends Loggable {    
-    void move(int destFloor);
+    void move(long time);
     
     public final String UP_DIRECTION = "UP";
     public final String DOWN_DIRECTION = "DOWN";
@@ -23,7 +23,7 @@ public interface ElevatorInterface extends Loggable {
     
     void openDoors();
     void closeDoors();
-    int getCurrentFloor();
+    double getCurrentFloor();
     int getElevatorID();
     void sendRequest(Request r); //** CREATE REQUESTABLE INTERFACE FOR THIS METHOD
     

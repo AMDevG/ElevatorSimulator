@@ -11,14 +11,14 @@ package com.jberry.simulator;
  */
 public class SimulatorSetting{
     
-    private final int floors;
-    private final int elevators;
-    private final int people;
-    private final int elevatorCapacity;
-    private final long doorTimeMills;
-    private final long travelTimeMills;
-    private final long idleTimeMills;
-    private final long timeStepMills;
+    private static int floors;
+    private static int elevators;
+    private static int people;
+    private static int elevatorCapacity;
+    private static long doorTimeMills;
+    private static long travelTimeMills;
+    private static long idleTimeMills;
+    private static long timeStepMills;
     
     
     public SimulatorSetting(int floorsIn, int elevatorsIn, int peopleIn, int elevCapacityIn,
@@ -34,13 +34,13 @@ public class SimulatorSetting{
         timeStepMills = timeStepMillsIn;
     }
     
-    public int getSettingsFloorCount(){return floors;}
-    public int getSettingsElevatorCount(){return elevators;}
-    public int getSettingsPeopleCount(){return people;}
-    public int getSettingsElevatorCapacity(){return elevatorCapacity;}
-    public long getSettingsDoorFunctionTime(){return doorTimeMills;}
-    public long getSettingsElevTravelTime(){return travelTimeMills;}
-    public long getSettingsElevIdleTime(){return idleTimeMills;}
-    public long getTimeStepMills(){return timeStepMills;}
+    public static int getSettingsFloorCount(){return floors;}
+    public static int getSettingsElevatorCount(){return elevators;}
+    public static int getSettingsPeopleCount(){return people;}
+    public static int getSettingsElevatorCapacity(){return elevatorCapacity;}
+    public static long getSettingsDoorFunctionTime(){return doorTimeMills;}
+    public static long getSettingsElevTravelTime(){return travelTimeMills;}
+    public static long getSettingsElevIdleTime(){return idleTimeMills;}
+    public static long getTimeStepMills(){return timeStepMills;}
      
 }

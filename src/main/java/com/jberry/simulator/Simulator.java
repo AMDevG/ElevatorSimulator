@@ -52,10 +52,14 @@ public class Simulator {
         timer.stopTimer();
     }
    
-    public static void updateSimulation(){
+ /*   public static void updateSimulation(){
         for(Elevator e : elevators){
             e.update();
-        } 
+        }
+    } */
+    
+    public static void updateGUI(){
+        
     }
 }
     

@@ -17,11 +17,24 @@ import java.io.IOException;
  *
  * @author johnberry
  */
-public class SimulationSettingsReader {
+public final class SimulationSettingsReader {
+    
     private static SimulatorSetting newSetting; 
+    private static SimulationSettingsReader instance;
     
-    public SimulationSettingsReader(){}
+    private SimulationSettingsReader(){}   
     
+    
+    public static SimulationSettingsReader getInstance(){
+        
+        if(instance == null){
+            instance = new SimulationSettingsReader();
+            return instance;
+        }
+        return instance; 
+    }
+    
+
     public static SimulatorSetting parseSimulationSettings(String filePathIn){
 
        try{

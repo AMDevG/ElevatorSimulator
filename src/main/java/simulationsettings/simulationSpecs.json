@@ -4,7 +4,7 @@
     "numberOfPeople":100,
     "maxElevatorCapacity":10,
     "doorFunctionTimeMills":2000,
-    "travelTimeMills":2000,
+    "travelTimeMills":4000,
     "idleTimeMills":8000,
     "timeStepMills":4000
 }
