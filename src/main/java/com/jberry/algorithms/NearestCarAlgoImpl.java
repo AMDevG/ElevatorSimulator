@@ -83,7 +83,7 @@ public class NearestCarAlgoImpl implements SchedulingAlgorithm {
 
         for(Elevator elevator : elevatorBank){
             
-            int distance = Math.abs(elevator.getCurrentFloor() - callFloorID);
+            int distance = Math.abs((int)elevator.getCurrentFloor() - callFloorID);
 
             if (elevatorWithMinDistance == 0){
                 elevatorWithMinDistance = elevator.getElevatorID();

@@ -23,11 +23,6 @@ public final class Building {
     
     private static ArrayList<Floor> floors;
     private static ArrayList<Elevator> elevators;
-
-   /* public Building(ArrayList<Floor>floorsIn, ArrayList<Elevator>elevatorsIn){
-        floors = floorsIn;
-        elevators = elevatorsIn;
-    }*/
     
     private Building(){}
     

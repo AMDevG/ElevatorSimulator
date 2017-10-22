@@ -67,10 +67,11 @@ public class Person {
     public String getDirection(){
         return directionOfTravel;
     }
-    private void startWaitTime(){
+    public void startWaitTime(){
         startTime = System.currentTimeMillis();
     }
-    private void calculateWaitTime(){
+  
+    public void calculateWaitTime(){
         endTime = System.currentTimeMillis();
         waitTime = endTime - startTime;
     }

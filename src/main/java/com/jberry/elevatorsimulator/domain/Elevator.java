@@ -37,6 +37,8 @@ public class Elevator implements ElevatorInterface {
     private long travelTimeMills;
     private long doorActionTimesMills;
     private long idleTimeMills;
+    private long idleStart = (long) 0.0;
+    private long timeIdle;
  
     public String direction;
     public String pendingDirection;
@@ -57,9 +59,7 @@ public class Elevator implements ElevatorInterface {
         
         floorsToVisit = new HashMap<>();
         riderStops = new HashMap<>();
-        //floorsToVisit.put(UP_DIRECTION, new ArrayList<Integer>());
-        //floorsToVisit.put(DOWN_DIRECTION, new ArrayList<Integer>());
-        
+
         direction = IDLE_STATUS;  
         peopleInElevator = new ArrayList<Person>();
     }
@@ -67,7 +67,7 @@ public class Elevator implements ElevatorInterface {
     //REAL SIMULATION: floorsPerUpdate = timeStep/travelTime
     /*MOVE LOGGER CODE INTO FACADE? LOGGER.LOG */
     public void move(long time){
-        
+       
        if(!floorsToVisit.isEmpty()){
             System.out.println("Elevator " + this.getElevatorID() + " needs to visit "+ floorsToVisit.get(pendingDirection));  
 
@@ -100,7 +100,10 @@ public class Elevator implements ElevatorInterface {
           } 
       }
         
+       
       else if (!riderStops.isEmpty()){
+          
+          System.out.println("Elevator "+getElevatorID()+" has riderStops at "+riderStops.keySet());
           
           if(direction != IDLE_STATUS){
             double distance = time/travelTimeMills;
@@ -153,12 +156,20 @@ public class Elevator implements ElevatorInterface {
         if(!floorsToVisit.containsKey(dirIn)){
             floorsToVisit.put(dirIn, new ArrayList<Integer>());
         }
-        
         floorsToVisit.get(dirIn).add(floorID);
         
-        direction = this.getDirection((int) getCurrentFloor(), floorID);
+        direction = getDirection((int) getCurrentFloor(), floorID);
         pendingDirection = dirIn;
         
+        
+        //START WAIT TIME FOR EACH PERSON
+        Floor floor = Building.getInstance().getFloors().get(floorID - 1);
+        for(Person p : floor.getPeopleWaiting()){   
+            if(p.getDirection().equals(pendingDirection)){
+               p.startWaitTime();
+            }
+        }
+
         System.out.println("Updated stops for elevator " + elevatorID);
         System.out.println("List of stops:  " + floorsToVisit.get(dirIn));
     }
@@ -180,7 +191,7 @@ public class Elevator implements ElevatorInterface {
         //ADDS PEOPLE TO ELEVATOR
         for(Person p : floor.getPeopleWaiting()){
             if(p.getDirection().equals(direction)){
-                System.out.println("Adding People to elevator");
+                System.out.println("Adding Person " + p.getID() + " dest floor " + p.getDestinationFloor());
                 if(!riderStops.containsKey(p.getDestinationFloor())){
                     riderStops.put(p.getDestinationFloor(), new ArrayList<Person>());
                     riderStops.get(p.getDestinationFloor()).add(p);
@@ -192,12 +203,16 @@ public class Elevator implements ElevatorInterface {
         }
         
        if(riderStops.containsKey(floor.getFloorID())){
-           System.out.println("Removing people from elevator");
-            for(Person p : riderStops.get(floor.getFloorID())){ 
-                    floor.addCompletedPersons(p);        
+            
+           for(Person p : riderStops.get(floor.getFloorID())){ 
+                System.out.println("Removing person: " + p.getID());
+                    floor.addCompletedPersons(p);
+                    p.calculateWaitTime();
                 }   
                 riderStops.remove(floor.getFloorID());
            }
+       
+       System.out.println("Elevator now has riderstops at " + riderStops.keySet());
  
        closeDoors();
     }

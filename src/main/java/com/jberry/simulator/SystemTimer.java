@@ -6,6 +6,8 @@
 package com.jberry.simulator;
 
 import com.jberry.elevatorsimulator.domain.Building;
+import com.jberry.elevatorsimulator.domain.Floor;
+import com.jberry.elevatorsimulator.domain.Person;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -47,6 +49,11 @@ public class SystemTimer {
             simulationTimeElapsedMillis = simulationTimeElapsedMillis + timeStep;
             
             if (simulationTimeElapsedMillis == 4000){
+
+                //SELECTS RANDOM FLOOR THAT IS NOT EMPTY
+                //RIDERS ARE PLACED ON FLOOR AT CREATION OF BUILDING
+  
+                
                 Building.getInstance().floorButtonPress(2, 6, "UP");
                 Building.getInstance().floorButtonPress(1, 7, "DOWN");
                 
