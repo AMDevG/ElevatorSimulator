@@ -42,6 +42,14 @@ public class Floor implements UpdateAble {
         return peopleWaitingOnFloor.size();
     }
     
+    public ArrayList<Person> getPeopleWaiting(){
+        return peopleWaitingOnFloor;
+    }
+    
+    public void addCompletedPersons(Person p){
+        completedPassengers.add(p);
+    }
+    
     public int getFloorID(){
         return floorID;
     }

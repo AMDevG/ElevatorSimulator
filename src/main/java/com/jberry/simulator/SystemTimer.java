@@ -48,6 +48,8 @@ public class SystemTimer {
             
             if (simulationTimeElapsedMillis == 4000){
                 Building.getInstance().floorButtonPress(2, 6, "UP");
+                Building.getInstance().floorButtonPress(1, 7, "DOWN");
+                
             }
             
             Building.getInstance().update(timeStep);

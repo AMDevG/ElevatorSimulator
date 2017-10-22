@@ -64,7 +64,9 @@ public class Person {
     public int getDestinationFloor(){
         return destinationFloor;
     }
-    
+    public String getDirection(){
+        return directionOfTravel;
+    }
     private void startWaitTime(){
         startTime = System.currentTimeMillis();
     }
