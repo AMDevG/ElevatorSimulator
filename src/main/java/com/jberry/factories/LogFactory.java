@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.jberry.factories;
+import com.jberry.elevatorsimulator.domain.Building;
 import com.jberry.interfaces.Log;
 import com.jberry.interfaces.Loggable;
 import com.jberry.simulator.logging.ElevatorLog;
@@ -41,8 +42,47 @@ public class LogFactory implements Loggable {
                 logDetail = " doors are open on floor " +senderCurrentFloor;
                 logMessage = timeStamp + logFrom + logDetail;
                 log = new ElevatorLog(logMessage);
-                break;         
+                break;    
+                
+            case DOORS_CLOSED:
+                timeStamp = timeStampIn;
+                logFrom = "     Elevator "+senderID;
+                logDetail = " doors are closed on floor " +senderCurrentFloor;
+                logMessage = timeStamp + logFrom + logDetail;
+                log = new ElevatorLog(logMessage);
+                break; 
+                
+            case MOVING:
+                timeStamp = timeStampIn;
+                logFrom = "     Elevator "+senderID;
+                logDetail = " moving from Floor " +senderCurrentFloor + " to Floor " +senderDestFloor;
+                logMessage = timeStamp + logFrom + logDetail;
+                log = new ElevatorLog(logMessage);
+                break; 
+ 
             }
+        return log;
+    }
+    
+    
+    public static Log createNewLog(int senderID, int senderCurrentFloor,int senderDest, String timeStampIn, String directionIn, Event eventIn){
+        switch(eventIn){
+              case PERSON_CREATED:
+                timeStamp = timeStampIn;
+                logFrom = "     Person "+senderID;
+                logDetail = "  created "+ senderDest + " wants to go " + directionIn + " to Floor " + senderDest; 
+                logMessage = timeStamp + logFrom + logDetail;
+                log = new ElevatorLog(logMessage);
+                break;
+                
+            case PERSON_ENTERING_ELEVATOR:
+                timeStamp = timeStampIn;
+                logFrom = "     Person "+senderID;
+                logDetail = "  entered Elevator "+ senderDest + " Riders: " + 
+                            Building.getInstance().getElevators().get(senderDest - 1).getRiderStops();
+                logMessage = timeStamp + logFrom + logDetail;
+                log = new ElevatorLog(logMessage);
+        }
         return log;
     }
     

@@ -111,7 +111,7 @@ public class Main {
         }    
     }
     
-    public static void getElevatorLocations(){
+  /*  public static void getElevatorLocations(){
         for(Elevator e : building.getElevators()){
             System.out.println("Elevator: "+e.getElevatorID()+
                                 " Is on Floor "+e.getCurrentFloor()+
@@ -119,7 +119,7 @@ public class Main {
                                 " people in it. "+
                                 "------------------------------------");
             }
-    }
+    }*/
    
     private static void moveElevator(int elevNum, int fromFloor, int toFloor) throws InterruptedException {
         int numRiders = (int) (11.0 * Math.random()) + 1;

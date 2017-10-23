@@ -17,11 +17,13 @@ public interface Loggable{
         RIDER_REQUEST,
         HANDLING_RIDER_REQUEST,
         HANDLED_REQUEST,
+        MOVING,
         DOORS_OPEN,
         DOORS_CLOSED,
         PERSON_ENTERING_ELEVATOR,
         PERSON_EXITING_ELEVATOR,
-        FLOOR_REQUEST
+        FLOOR_REQUEST, 
+        PERSON_CREATED
     }
     
 }

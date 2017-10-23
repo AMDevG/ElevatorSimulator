@@ -5,14 +5,19 @@
  */
 package com.jberry.elevatorsimulator.domain;
 
+import com.jberry.factories.LogFactory;
+import com.jberry.interfaces.Log;
+import com.jberry.interfaces.Loggable;
 import com.jberry.interfaces.Request;
+import com.jberry.simulator.SystemTimer;
+import com.jberry.simulator.logging.ActivityLogger;
 import java.util.Random;
 
 /**
  *
  * @author johnberry
  */
-public class Person {
+public class Person implements Loggable{
     private int personID;
     private ElevatorProcessor processor;
  
@@ -38,6 +43,10 @@ public class Person {
             directionOfTravel = "UP";
         else
             directionOfTravel = "DOWN";
+
+       Log logToDisplay = LogFactory.createNewLog(personID, currentFloor, destinationFloor, SystemTimer.getTimeStamp(), directionOfTravel, Loggable.Event.PERSON_CREATED);
+       ActivityLogger.displayLog(logToDisplay);
+       // createNewLog(int senderID, int senderCurrentFloor,int senderDestFloor, String timeStampIn, String directionIn, Loggable.Event eventIn)
     }
 
     public void sendRequest(){

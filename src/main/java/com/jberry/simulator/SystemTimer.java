@@ -8,6 +8,10 @@ package com.jberry.simulator;
 import com.jberry.elevatorsimulator.domain.Building;
 import com.jberry.elevatorsimulator.domain.Floor;
 import com.jberry.elevatorsimulator.domain.Person;
+import com.jberry.factories.LogFactory;
+import com.jberry.interfaces.Log;
+import com.jberry.interfaces.Loggable;
+import com.jberry.simulator.logging.ActivityLogger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,7 +20,7 @@ import java.util.logging.Logger;
  * @author johnberry
  */
 public class SystemTimer {
-    private long durationTime = 60000;
+    private long durationTime = 120000;
     public static final long MILLISECONDS_PER_SECOND = 1000;
     public static final long MILLISECONDS_PER_MINUTE = 60000;
     
@@ -50,7 +54,11 @@ public class SystemTimer {
             //IN FINAL SUBMISSION RIDERS ARE PLACED ON FLOOR AT CREATION OF BUILDING
             if (simulationTimeElapsedMillis == 2000){
                 Building.getInstance().getFloors().get(5).addPerson(new Person(1,6,1));
+                //Log logToSend = LogFactory.createNewLog(getElevatorID(), (int) getCurrentFloor(),0, timeStamp, Loggable.Event.DOORS_OPEN);
+                //ActivityLogger.displayLog(logToSend);
+                
                 Building.getInstance().floorButtonPress(3, 6, "DOWN");
+                
                 
                 Building.getInstance().getFloors().get(15).addPerson(new Person(12,16,19));
                 Building.getInstance().floorButtonPress(1, 16, "UP");
@@ -97,7 +105,6 @@ public class SystemTimer {
             }
         }   
     }
-    
  
     public void stopTimer(){
         System.out.println("Timer stopped.");
