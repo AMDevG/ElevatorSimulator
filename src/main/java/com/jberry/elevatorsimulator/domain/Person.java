@@ -70,7 +70,6 @@ public class Person {
     public void startWaitTime(){
         startTime = System.currentTimeMillis();
     }
-  
     public void calculateWaitTime(){
         endTime = System.currentTimeMillis();
         waitTime = endTime - startTime;

@@ -49,14 +49,15 @@ public class SystemTimer {
             simulationTimeElapsedMillis = simulationTimeElapsedMillis + timeStep;
             
             if (simulationTimeElapsedMillis == 4000){
-
-                //SELECTS RANDOM FLOOR THAT IS NOT EMPTY
+               
+                //SELECTS RANDOM FLOOR THAT IS NOT EMPTY FOR FIRST SUBMISSION PROTOTYPE
                 //RIDERS ARE PLACED ON FLOOR AT CREATION OF BUILDING
-  
-                
-                Building.getInstance().floorButtonPress(2, 6, "UP");
+                Building.getInstance().getFloors().get(6).addPerson(new Person(1,7,2));
                 Building.getInstance().floorButtonPress(1, 7, "DOWN");
                 
+                Building.getInstance().getFloors().get(5).addPerson(new Person(1,6,10));
+                Building.getInstance().floorButtonPress(2, 6, "UP");
+     
             }
             
             Building.getInstance().update(timeStep);
@@ -72,6 +73,7 @@ public class SystemTimer {
         }   
     }
     
+ 
     public void stopTimer(){
         System.out.println("Timer stopped.");
         timeNow = System.currentTimeMillis();

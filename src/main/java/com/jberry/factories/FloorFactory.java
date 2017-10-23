@@ -25,14 +25,17 @@ public class FloorFactory {
             
             peopleToAddToFloor = new ArrayList<Person>();
             
+          if(peopleInBuilding.isEmpty()){
             for (Person person : peopleInBuilding){
                 if(person.getCurrentFloor()==i){  
                     peopleToAddToFloor.add(person);
                 }   
             }
+          }
             Floor newFloor = new Floor(i, numberOfElevatorsIn, peopleToAddToFloor); //IF FLOOR ID MATCHES PERSON ID, ADD TO ARRAY)
             buildingFloors.add(newFloor);   
         }
+        
         return buildingFloors;
     }
     

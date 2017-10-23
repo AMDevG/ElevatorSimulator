@@ -71,4 +71,10 @@ public final class Building {
         elevators.get(elevatorID - 1).addFloorToVisit(floorID, direction);
     }
     
+    public void selectRandomCall(){
+        
+        
+        
+    }
+    
 }
