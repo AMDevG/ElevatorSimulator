@@ -66,7 +66,7 @@ public class Elevator implements ElevatorInterface {
     
     //REAL SIMULATION: floorsPerUpdate = timeStep/travelTime
     /*MOVE LOGGER CODE INTO FACADE? LOGGER.LOG */
-    public void move(long time){
+  public void move(long time){
         
         if(riderStops.isEmpty() && floorsToVisit.isEmpty()){
             direction = IDLE_STATUS;
@@ -145,36 +145,57 @@ public class Elevator implements ElevatorInterface {
     public void update(long timeIn){ 
         move(timeIn);   
     }
-    
-    public int getNumRiders(){
-        
-        int counter = 0;
-        
-        for(int key : riderStops.keySet()){
-            counter = counter + riderStops.get(key).size();
+   
+    public void processFloor(){
+        Floor floor = Building.getInstance().getFloors().get((int)this.getCurrentFloor() - 1);
+        //ADDS PEOPLE TO ELEVATOR
+        System.out.println("Num people waiting " + floor.getNumberofPeopleWaiting());
+        System.out.println("Elevator Direction: "+direction);
+        for(Person p : floor.getPeopleWaiting()){
+            if(p.getDirection().equals(direction)){
+                System.out.println(SystemTimer.getTimeStamp() + " Adding Person " + p.getID() + " dest floor " + p.getDestinationFloor());
+                if(!riderStops.containsKey(p.getDestinationFloor())){
+                    riderStops.put(p.getDestinationFloor(), new ArrayList<Person>());
+                    riderStops.get(p.getDestinationFloor()).add(p);
+                }
+                else{
+                    riderStops.get(p.getDestinationFloor()).add(p);
+                } 
+            }
         }
-
-        
-        System.out.println("Get Num Riders is " + counter);
-        return counter;
-    }
-    public void sendRequest(Request r){
-        //UNUSED PART OF ELEVATOR INTERFACE 
+ 
+       if(riderStops.containsKey(floor.getFloorID())){ 
+           for(Person p : riderStops.get(floor.getFloorID())){ 
+                System.out.println(SystemTimer.getTimeStamp() + " Removing person: " + p.getID() + " arrived at :"+ p.getDestinationFloor());
+                    floor.addCompletedPersons(p);
+                    p.calculateWaitTime();
+                }   
+                riderStops.remove(floor.getFloorID());
+                }
+       //CHECK TO SEE IF THERE ARE ANYMORE RIDERSTOPS
+            if(riderStops.isEmpty() && !floorsToVisit.isEmpty()){
+                System.out.println("Rider Stops empty for elv " + getElevatorID());
+                System.out.println("Handling next floor request");
+                
+                if(floorsToVisit.containsKey("UP")){
+                    //GETS FIRST FLOOR REQUEST
+                    int nextFloor = floorsToVisit.get("UP").get(0);
+                    pendingDirection = UP_DIRECTION;
+                    direction = getDirection((int) getCurrentFloor(),nextFloor); 
+                }
+                else if(floorsToVisit.containsKey("DOWN")){
+                    int nextFloor = floorsToVisit.get("DOWN").get(0);
+                    pendingDirection = DOWN_DIRECTION;
+                    direction = getDirection((int) getCurrentFloor(),nextFloor);   
+                }
+              }
+            else{
+                System.out.println("Elevator " + getElevatorID()+" now has riderstops at " + riderStops.keySet());
+              }
+            
+            closeDoors();
     }
     
-    public void openDoors(){
-        String timeStamp = SystemTimer.getTimeStamp();
-        ElevatorDisplay.getInstance().openDoors(getElevatorID());
-        Log logToSend = LogFactory.createNewLog(getElevatorID(), (int) getCurrentFloor(),0, timeStamp, Event.DOORS_OPEN);
-        ActivityLogger.displayLog(logToSend);
-        
-        processFloor();
-    }
-    
-    public void closeDoors(){
-        ElevatorDisplay.getInstance().closeDoors(getElevatorID());
-        System.out.println(SystemTimer.getTimeStamp() +  "Elevator " + getElevatorID() + " cloosing doors");
-    }
     
     public void addFloorToVisit(int floorID, String dirIn){
         //IF CALLS FOR THAT DIRECTION DONT EXIST; CREATE ARRAY LIST
@@ -192,7 +213,6 @@ public class Elevator implements ElevatorInterface {
             pendingDirection = dirIn;
         }
         else{
-            
             //CHECK TO SEE IF NEW CALL WILL INTERUPT OTHER CALLS PENDING
             if (dirIn!=pendingDirection){
                 System.out.println("Elevator " + getElevatorID() + " got call for "+ dirIn + " has to wait to complete current call of dir " + pendingDirection);
@@ -203,7 +223,6 @@ public class Elevator implements ElevatorInterface {
         }
         
         System.out.println("Elevator " + getElevatorID() + " status "+ getCurrentDirection());
-       
         //START WAIT TIME FOR EACH PERSON
         Floor floor = Building.getInstance().getFloors().get(floorID - 1);
         for(Person p : floor.getPeopleWaiting()){   
@@ -211,78 +230,45 @@ public class Elevator implements ElevatorInterface {
                p.startWaitTime();
             }
         }
-
         System.out.println("Updated stops for elevator " + elevatorID);
         System.out.println("List of floor stops:  " + floorsToVisit.get(dirIn));
     }
     
-    public String getDirection(int currentLocation, int floorID){
-        
-        if(floorID > currentLocation){
-            return "UP";
+    
+    
+    public int getNumRiders(){
+        int counter = 0;
+        for(int key : riderStops.keySet()){
+            counter = counter + riderStops.get(key).size();
         }
-        else{
-            return "DOWN";
-        } 
+        System.out.println("Get Num Riders is " + counter);
+        return counter;
+    }
+        
+        
+    public void sendRequest(Request r){
+        //UNUSED PART OF ELEVATOR INTERFACE 
     }
     
-    public void processFloor(){
+    public void openDoors(){
+        String timeStamp = SystemTimer.getTimeStamp();
+        ElevatorDisplay.getInstance().openDoors(getElevatorID());
+        Log logToSend = LogFactory.createNewLog(getElevatorID(), (int) getCurrentFloor(),0, timeStamp, Event.DOORS_OPEN);
+        ActivityLogger.displayLog(logToSend);
         
-        Floor floor = Building.getInstance().getFloors().get((int)this.getCurrentFloor() - 1);
+        processFloor();
+    }
+    
+    public void closeDoors(){
+        ElevatorDisplay.getInstance().closeDoors(getElevatorID());
+        System.out.println(SystemTimer.getTimeStamp() +  "Elevator " + getElevatorID() + " cloosing doors");
+    }
+   
+    
+    public String getDirection(int currentLocation, int floorID){
         
-        //ADDS PEOPLE TO ELEVATOR
-        System.out.println("Num people waiting " + floor.getNumberofPeopleWaiting());
-        System.out.println("Elevator Direction: "+direction);
-        
-        for(Person p : floor.getPeopleWaiting()){
-            if(p.getDirection().equals(direction)){
-                System.out.println(SystemTimer.getTimeStamp() + " Adding Person " + p.getID() + " dest floor " + p.getDestinationFloor());
-                if(!riderStops.containsKey(p.getDestinationFloor())){
-                    riderStops.put(p.getDestinationFloor(), new ArrayList<Person>());
-                    riderStops.get(p.getDestinationFloor()).add(p);
-                }
-                else{
-                    riderStops.get(p.getDestinationFloor()).add(p);
-                } 
-            }
-        }
- 
-       if(riderStops.containsKey(floor.getFloorID())){
-            
-           for(Person p : riderStops.get(floor.getFloorID())){ 
-                System.out.println(SystemTimer.getTimeStamp() + " Removing person: " + p.getID() + " arrived at :"+ p.getDestinationFloor());
-                    floor.addCompletedPersons(p);
-                    p.calculateWaitTime();
-                }   
-                riderStops.remove(floor.getFloorID());
-           }
-       
-       //CHECK TO SEE IF THERE ARE ANYMORE RIDERSTOPS
-            if(riderStops.isEmpty() && !floorsToVisit.isEmpty()){
-               
-                System.out.println("Rider Stops empty for elv " + getElevatorID());
-                System.out.println("Handling next floor request");
-                
-                if(floorsToVisit.containsKey("UP")){
-                    //GETS FIRST FLOOR REQUEST
-                    int nextFloor = floorsToVisit.get("UP").get(0);
-                    pendingDirection = UP_DIRECTION;
-                    direction = getDirection((int) getCurrentFloor(),nextFloor);
-                    
-                }
-                else if(floorsToVisit.containsKey("DOWN")){
-                    int nextFloor = floorsToVisit.get("DOWN").get(0);
-                    pendingDirection = DOWN_DIRECTION;
-                    direction = getDirection((int) getCurrentFloor(),nextFloor);   
-                }
-                
-            }
-            
-            else{
-                System.out.println("Elevator " + getElevatorID()+" now has riderstops at " + riderStops.keySet());
-            }
-       
-            closeDoors();
+        if(floorID > currentLocation){return "UP";}
+        else{return "DOWN";} 
     }
     
     public double getCurrentFloor(){
@@ -309,6 +295,4 @@ public class Elevator implements ElevatorInterface {
         return floorsToVisit.get(dirIn);
     }   
     //public void reAssignSector(int sectorIDIn){sectorID = sectorIDIn;}
-
-    
 }

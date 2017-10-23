@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  * @author johnberry
  */
 public class SystemTimer {
-    private long durationTime = 100000;
+    private long durationTime = 60000;
     public static final long MILLISECONDS_PER_SECOND = 1000;
     public static final long MILLISECONDS_PER_MINUTE = 60000;
     
@@ -31,8 +31,7 @@ public class SystemTimer {
     private boolean simulatorRunning; 
     private static String stepTimeStamp;
     
-    public SystemTimer(long timeStepIn){   
-        
+    public SystemTimer(long timeStepIn){    
         simulationTimeElapsedMillis = 0;
         timeStep = timeStepIn;
         simulatorRunning = false;
@@ -45,10 +44,7 @@ public class SystemTimer {
     }
 
     public void step(){
-        
-     
-        while(simulationTimeElapsedMillis <= durationTime){
-            
+        while(simulationTimeElapsedMillis <= durationTime){ 
             simulationTimeElapsedMillis = simulationTimeElapsedMillis + timeStep;
 
             //IN FINAL SUBMISSION RIDERS ARE PLACED ON FLOOR AT CREATION OF BUILDING
@@ -93,9 +89,6 @@ public class SystemTimer {
             }
 
             Building.getInstance().update(timeStep);
-            
-            System.out.println("Performed Step. Total Simulation Time: "+ (simulationTimeElapsedMillis));
-            System.out.println("-----------------------------------");
             
             try {
                 Thread.sleep(timeStep);
