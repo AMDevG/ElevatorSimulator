@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  * @author johnberry
  */
 public class SystemTimer {
-    private long durationTime = 20000;
+    private long durationTime = 100000;
     public static final long MILLISECONDS_PER_SECOND = 1000;
     public static final long MILLISECONDS_PER_MINUTE = 60000;
     
@@ -46,10 +46,8 @@ public class SystemTimer {
 
     public void step(){
         
-        if(simulationTimeElapsedMillis >= durationTime){
-            stopTimer();  
-        }
-        while(simulatorRunning){
+     
+        while(simulationTimeElapsedMillis <= durationTime){
             
             simulationTimeElapsedMillis = simulationTimeElapsedMillis + timeStep;
 
@@ -96,7 +94,7 @@ public class SystemTimer {
 
             Building.getInstance().update(timeStep);
             
-            System.out.println("Performed Step. Total Simulation Time: "+ (simulationTimeElapsedMillis/1000.0));
+            System.out.println("Performed Step. Total Simulation Time: "+ (simulationTimeElapsedMillis));
             System.out.println("-----------------------------------");
             
             try {
