@@ -36,7 +36,7 @@ public class Main {
      * @param args the command line arguments
      */
     
-    private static String settingsFilePath = "/Users/johnberry/NetBeansProjects/ElevatorSimulatorSE450/src/main/java/simulationsettings/simulationSpecs.json";
+    private static String settingsFilePath = "C:\\Users\\John Berry\\Desktop\\ElevatorSimulator\\src\\main\\java\\simulationsettings\\simulationSpecs.json";
     private static final int LOBBY_FLOOR = 1;
     
     private static Building building;
@@ -97,45 +97,4 @@ public class Main {
         return building;
     }
  
-    public static void testDispatcher(int floorIn){
-        ArrayList<Floor> floors = building.getFloors();
-        Floor callFloor = floors.get(floorIn);
-        if(!(callFloor.getNumberofPeopleWaiting() == 0)){
-            callFloor.sendRequest();
-        }
-        else{
-            while(callFloor.getNumberofPeopleWaiting() == 0){
-                callFloor = floors.get(floorIn++); 
-            }
-            callFloor.sendRequest();
-        }    
-    }
-    
-  /*  public static void getElevatorLocations(){
-        for(Elevator e : building.getElevators()){
-            System.out.println("Elevator: "+e.getElevatorID()+
-                                " Is on Floor "+e.getCurrentFloor()+
-                                " and has "+e.getCurrentCapacity()+
-                                " people in it. "+
-                                "------------------------------------");
-            }
-    }*/
-   
-    private static void moveElevator(int elevNum, int fromFloor, int toFloor) throws InterruptedException {
-        int numRiders = (int) (11.0 * Math.random()) + 1;
-
-        ElevatorDisplay.getInstance().closeDoors(elevNum);
-        if (fromFloor < toFloor) {
-            for (int i = fromFloor; i <= toFloor; i++) {
-                ElevatorDisplay.getInstance().updateElevator(elevNum, i, numRiders, UP);
-                Thread.sleep(80);
-            }
-        } else {
-            for (int i = fromFloor; i >= toFloor; i--) {
-                ElevatorDisplay.getInstance().updateElevator(elevNum, i, numRiders, DOWN);
-                Thread.sleep(80);
-            }
-        }
-        ElevatorDisplay.getInstance().openDoors(elevNum);
-    }
 }

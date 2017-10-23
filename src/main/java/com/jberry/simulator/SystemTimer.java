@@ -49,14 +49,11 @@ public class SystemTimer {
 
     public void step(){
         while(simulationTimeElapsedMillis <= durationTime){ 
-            simulationTimeElapsedMillis = simulationTimeElapsedMillis + timeStep;
+            
 
             //IN FINAL SUBMISSION RIDERS ARE PLACED ON FLOOR AT CREATION OF BUILDING
             if (simulationTimeElapsedMillis == 2000){
                 Building.getInstance().getFloors().get(5).addPerson(new Person(1,6,1));
-                //Log logToSend = LogFactory.createNewLog(getElevatorID(), (int) getCurrentFloor(),0, timeStamp, Loggable.Event.DOORS_OPEN);
-                //ActivityLogger.displayLog(logToSend);
-                
                 Building.getInstance().floorButtonPress(3, 6, "DOWN");
                 
                 
@@ -65,6 +62,8 @@ public class SystemTimer {
                 
                 Building.getInstance().getFloors().get(15).addPerson(new Person(12,16,2));
                 Building.getInstance().floorButtonPress(4, 16, "DOWN");
+                
+                Building.getInstance().update(timeStep);
             }
             
             if (simulationTimeElapsedMillis == 4000){
@@ -73,6 +72,8 @@ public class SystemTimer {
                 
                 Building.getInstance().getFloors().get(9).addPerson(new Person(3,10,18));
                 Building.getInstance().floorButtonPress(1, 10, "UP");
+                
+                Building.getInstance().update(timeStep);
             }
             
             if (simulationTimeElapsedMillis == 6000){
@@ -81,6 +82,8 @@ public class SystemTimer {
                 
                 Building.getInstance().getFloors().get(3).addPerson(new Person(5,4,10));
                 Building.getInstance().floorButtonPress(2, 4, "UP");
+                
+                Building.getInstance().update(timeStep);
             }
             if (simulationTimeElapsedMillis == 8000){
                 Building.getInstance().getFloors().get(16).addPerson(new Person(6,17,18));
@@ -94,9 +97,15 @@ public class SystemTimer {
                 
                 Building.getInstance().getFloors().get(9).addPerson(new Person(7,10,14));
                 Building.getInstance().floorButtonPress(3, 10, "UP");
+                
+                Building.getInstance().update(timeStep);
             }
-
-            Building.getInstance().update(timeStep);
+            
+            else{
+                Building.getInstance().update(timeStep);
+            }
+            
+            simulationTimeElapsedMillis = simulationTimeElapsedMillis + timeStep;
             
             try {
                 Thread.sleep(timeStep);
