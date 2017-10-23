@@ -16,6 +16,7 @@ import java.util.logging.Logger;
  * @author johnberry
  */
 public class SystemTimer {
+    private long durationTime = 20000;
     public static final long MILLISECONDS_PER_SECOND = 1000;
     public static final long MILLISECONDS_PER_MINUTE = 60000;
     
@@ -44,31 +45,35 @@ public class SystemTimer {
     }
 
     public void step(){
+        
+        if(simulationTimeElapsedMillis >= durationTime){
+            stopTimer();  
+        }
         while(simulatorRunning){
             
             simulationTimeElapsedMillis = simulationTimeElapsedMillis + timeStep;
 
             //IN FINAL SUBMISSION RIDERS ARE PLACED ON FLOOR AT CREATION OF BUILDING
             if (simulationTimeElapsedMillis == 2000){
-                Building.getInstance().getFloors().get(19).addPerson(new Person(1,20,1));
-                Building.getInstance().floorButtonPress(3, 20, "DOWN");
+                Building.getInstance().getFloors().get(5).addPerson(new Person(1,6,1));
+                Building.getInstance().floorButtonPress(3, 6, "DOWN");
                 
-                Building.getInstance().getFloors().get(15).addPerson(new Person(12,16,20));
+                Building.getInstance().getFloors().get(15).addPerson(new Person(12,16,19));
                 Building.getInstance().floorButtonPress(1, 16, "UP");
                 
-                Building.getInstance().getFloors().get(15).addPerson(new Person(12,16,29));
-                Building.getInstance().floorButtonPress(1, 16, "UP");
+                Building.getInstance().getFloors().get(15).addPerson(new Person(12,16,2));
+                Building.getInstance().floorButtonPress(4, 16, "DOWN");
             }
             
             if (simulationTimeElapsedMillis == 4000){
                 Building.getInstance().getFloors().get(1).addPerson(new Person(2,2,10));
                 Building.getInstance().floorButtonPress(2, 2, "UP");
                 
-                Building.getInstance().getFloors().get(5).addPerson(new Person(3,16,10));
-                Building.getInstance().floorButtonPress(1, 16, "DOWN");
+                Building.getInstance().getFloors().get(9).addPerson(new Person(3,10,18));
+                Building.getInstance().floorButtonPress(1, 10, "UP");
             }
             
-           /* if (simulationTimeElapsedMillis == 6000){
+            if (simulationTimeElapsedMillis == 6000){
                 Building.getInstance().getFloors().get(10).addPerson(new Person(4,11,1));
                 Building.getInstance().floorButtonPress(4, 11, "DOWN");
                 
@@ -84,7 +89,10 @@ public class SystemTimer {
                 
                 Building.getInstance().getFloors().get(9).addPerson(new Person(8,10,3));
                 Building.getInstance().floorButtonPress(1, 10, "DOWN");
-            }*/
+                
+                Building.getInstance().getFloors().get(9).addPerson(new Person(7,10,14));
+                Building.getInstance().floorButtonPress(3, 10, "UP");
+            }
 
             Building.getInstance().update(timeStep);
             
