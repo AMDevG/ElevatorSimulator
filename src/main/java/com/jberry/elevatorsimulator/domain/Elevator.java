@@ -150,10 +150,6 @@ public class Elevator implements ElevatorInterface {
         //  System.out.println("Status: " + this.getCurrentDirection());
     }
    }
-    
-    public void update(long timeIn){ 
-        move(timeIn);   
-    }
    
     public void processFloor(){
         Floor floor = Building.getInstance().getFloors().get((int)this.getCurrentFloor() - 1);
@@ -209,9 +205,8 @@ public class Elevator implements ElevatorInterface {
               }
             
             closeDoors();
-    }
-    
-    
+       }
+
     public void addFloorToVisit(int floorID, String dirIn){
         //IF CALLS FOR THAT DIRECTION DONT EXIST; CREATE ARRAY LIST
         if(!floorsToVisit.containsKey(dirIn)){
@@ -238,8 +233,6 @@ public class Elevator implements ElevatorInterface {
                 pendingDirection = dirIn;
             }
         }
-        
-        //System.out.println("Elevator " + getElevatorID() + " status "+ getCurrentDirection());
        
         //START WAIT TIME FOR EACH PERSON
         Floor floor = Building.getInstance().getFloors().get(floorID - 1);
@@ -248,8 +241,11 @@ public class Elevator implements ElevatorInterface {
                p.startWaitTime();
             }
         }
-       // System.out.println("Updated stops for elevator " + elevatorID);
-       // System.out.println("List of floor stops:  " + floorsToVisit.get(dirIn));
+    }
+    
+        
+    public void update(long timeIn){ 
+        move(timeIn);   
     }
   
     public int getNumRiders(){
@@ -259,8 +255,7 @@ public class Elevator implements ElevatorInterface {
         }
         return counter;
     }
-        
-        
+            
     public void sendRequest(Request r){
         //UNUSED PART OF ELEVATOR INTERFACE 
     }
@@ -299,7 +294,6 @@ public class Elevator implements ElevatorInterface {
         ActivityLogger.displayLog(logToSend);
     }
    
-    
     public String getDirection(int currentLocation, int floorID){
         
         if(floorID > currentLocation){return "UP";}
@@ -326,5 +320,4 @@ public class Elevator implements ElevatorInterface {
         //ArrayList<Integer>copyOfFloorsToVisit = new ArrayList<Integer>();  
         return floorsToVisit.get(dirIn);
     }   
-    //public void reAssignSector(int sectorIDIn){sectorID = sectorIDIn;}
 }

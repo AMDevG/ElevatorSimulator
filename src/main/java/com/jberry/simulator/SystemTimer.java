@@ -49,13 +49,10 @@ public class SystemTimer {
 
     public void step(){
         while(simulationTimeElapsedMillis <= durationTime){ 
-            
-
             //IN FINAL SUBMISSION RIDERS ARE PLACED ON FLOOR AT CREATION OF BUILDING
             if (simulationTimeElapsedMillis == 2000){
                 Building.getInstance().getFloors().get(5).addPerson(new Person(1,6,1));
                 Building.getInstance().floorButtonPress(3, 6, "DOWN");
-                
                 
                 Building.getInstance().getFloors().get(15).addPerson(new Person(12,16,19));
                 Building.getInstance().floorButtonPress(1, 16, "UP");
@@ -100,7 +97,6 @@ public class SystemTimer {
                 
                 Building.getInstance().update(timeStep);
             }
-            
             else{
                 Building.getInstance().update(timeStep);
             }
@@ -114,7 +110,7 @@ public class SystemTimer {
             }
         }   
     }
- 
+    
     public void stopTimer(){
         System.out.println("Timer stopped.");
         timeNow = System.currentTimeMillis();
