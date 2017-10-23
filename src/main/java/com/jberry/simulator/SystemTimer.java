@@ -47,19 +47,45 @@ public class SystemTimer {
         while(simulatorRunning){
             
             simulationTimeElapsedMillis = simulationTimeElapsedMillis + timeStep;
-            
-            if (simulationTimeElapsedMillis == 4000){
-               
-                //SELECTS RANDOM FLOOR THAT IS NOT EMPTY FOR FIRST SUBMISSION PROTOTYPE
-                //RIDERS ARE PLACED ON FLOOR AT CREATION OF BUILDING
-                Building.getInstance().getFloors().get(6).addPerson(new Person(1,7,2));
-                Building.getInstance().floorButtonPress(1, 7, "DOWN");
+
+            //IN FINAL SUBMISSION RIDERS ARE PLACED ON FLOOR AT CREATION OF BUILDING
+            if (simulationTimeElapsedMillis == 2000){
+                Building.getInstance().getFloors().get(19).addPerson(new Person(1,20,1));
+                Building.getInstance().floorButtonPress(3, 20, "DOWN");
                 
-                Building.getInstance().getFloors().get(5).addPerson(new Person(1,6,10));
-                Building.getInstance().floorButtonPress(2, 6, "UP");
-     
+                Building.getInstance().getFloors().get(15).addPerson(new Person(12,16,20));
+                Building.getInstance().floorButtonPress(1, 16, "UP");
+                
+                Building.getInstance().getFloors().get(15).addPerson(new Person(12,16,29));
+                Building.getInstance().floorButtonPress(1, 16, "UP");
             }
             
+            if (simulationTimeElapsedMillis == 4000){
+                Building.getInstance().getFloors().get(1).addPerson(new Person(2,2,10));
+                Building.getInstance().floorButtonPress(2, 2, "UP");
+                
+                Building.getInstance().getFloors().get(5).addPerson(new Person(3,16,10));
+                Building.getInstance().floorButtonPress(1, 16, "DOWN");
+            }
+            
+           /* if (simulationTimeElapsedMillis == 6000){
+                Building.getInstance().getFloors().get(10).addPerson(new Person(4,11,1));
+                Building.getInstance().floorButtonPress(4, 11, "DOWN");
+                
+                Building.getInstance().getFloors().get(3).addPerson(new Person(5,4,10));
+                Building.getInstance().floorButtonPress(2, 4, "UP");
+            }
+            if (simulationTimeElapsedMillis == 8000){
+                Building.getInstance().getFloors().get(16).addPerson(new Person(6,17,18));
+                Building.getInstance().floorButtonPress(2, 17, "UP");
+                
+                Building.getInstance().getFloors().get(8).addPerson(new Person(7,9,14));
+                Building.getInstance().floorButtonPress(3, 9, "UP");
+                
+                Building.getInstance().getFloors().get(9).addPerson(new Person(8,10,3));
+                Building.getInstance().floorButtonPress(1, 10, "DOWN");
+            }*/
+
             Building.getInstance().update(timeStep);
             
             System.out.println("Performed Step. Total Simulation Time: "+ (simulationTimeElapsedMillis/1000.0));
