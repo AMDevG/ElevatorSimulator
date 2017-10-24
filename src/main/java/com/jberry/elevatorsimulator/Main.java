@@ -22,6 +22,9 @@ import com.jberry.simulator.Simulator;
 import com.jberry.simulator.SystemTimer;
 
 import gui.ElevatorDisplay;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.io.File; 
 
 /**
  *
@@ -32,7 +35,9 @@ public class Main {
      * @param args the command line arguments
      */
     
-    private static final String SETTINGS_FILE_PATH = "/Users/johnberry/Desktop/WorkingElevatorSim/ElevatorSimulator/src/main/java/simulationsettings/simulationSpecs.json";
+    private static String currentDir = System.getProperty("user.dir");
+    private static String SETTINGS_FILE_PATH;
+    
     private static final int LOBBY_FLOOR = 1;
     
     private static Building building;
@@ -48,6 +53,16 @@ public class Main {
     private static long TIME_STEP_MILLIS;
 
     public static void main(String[] args) throws InterruptedException {
+        String USER_OS = System.getProperty("os.name");
+        
+        //IF USER IS ON MAC, CHANGE FILE PATH STRING
+        if(!USER_OS.contains("Window")){
+            SETTINGS_FILE_PATH = currentDir + "//simulationSpecs.json";  
+        }
+        else{
+            SETTINGS_FILE_PATH = currentDir + "\\simulationSpecs.json";  
+        }
+        
         createSettings();
         setUpBuilding();
         createSimulatorComponents();

@@ -15,11 +15,11 @@ import java.util.logging.Logger;
  * @author johnberry
  */
 public class SystemTimer {
-    private final long durationTime = 180000;
+    private final long durationTime = 180_000;
     public static final long MILLISECONDS_PER_SECOND = 1000;
-    public static final long MILLISECONDS_PER_MINUTE = 60000;
+    public static final long MILLISECONDS_PER_MINUTE = 60_000;
     
-    private static String logMessage; //Create class for?
+    private static String logMessage; 
     private static long simulationTimeElapsedMillis;
     public static long tCalc;
     
