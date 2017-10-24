@@ -18,13 +18,12 @@ public class SystemTimer {
     private final long durationTime = 180_000;
     public static final long MILLISECONDS_PER_SECOND = 1000;
     public static final long MILLISECONDS_PER_MINUTE = 60_000;
+    private final long timeStep;
     
     private static String logMessage; 
     private static long simulationTimeElapsedMillis;
     public static long tCalc;
-    
-    private final long timeStep;
-  
+   
     private static long timeStart;
     private long timeNow;
     private boolean simulatorRunning; 
@@ -43,7 +42,8 @@ public class SystemTimer {
     }
 
     public void step(){
-        while(simulationTimeElapsedMillis <= durationTime){ 
+        while(simulationTimeElapsedMillis <= durationTime){
+            
             //IN FINAL SUBMISSION RIDERS ARE PLACED ON FLOOR AT CREATION OF BUILDING
             if (simulationTimeElapsedMillis == 2000){
                Building.getInstance().getFloors().get(5).addPerson(new Person(1,6,1));
