@@ -54,8 +54,6 @@ public class SystemTimer {
                 
                Building.getInstance().getFloors().get(15).addPerson(new Person(3,16,2));
                Building.getInstance().floorButtonPress(4, 16, "DOWN");
-                
-               Building.getInstance().update(timeStep);
             }
             
             if (simulationTimeElapsedMillis == 4000){
@@ -64,8 +62,6 @@ public class SystemTimer {
                 
                 Building.getInstance().getFloors().get(9).addPerson(new Person(5,10,18));
                 Building.getInstance().floorButtonPress(1, 10, "UP");
-                
-                Building.getInstance().update(timeStep);
             }
             
             if (simulationTimeElapsedMillis == 6000){
@@ -74,9 +70,8 @@ public class SystemTimer {
                 
                 Building.getInstance().getFloors().get(3).addPerson(new Person(7,4,10));
                 Building.getInstance().floorButtonPress(2, 4, "UP");
-                
-                Building.getInstance().update(timeStep);
             }
+            
             if (simulationTimeElapsedMillis == 8000){
                 Building.getInstance().getFloors().get(16).addPerson(new Person(8,17,18));
                 Building.getInstance().floorButtonPress(2, 17, "UP");
@@ -88,14 +83,11 @@ public class SystemTimer {
                 Building.getInstance().floorButtonPress(1, 10, "DOWN");
                 
                 Building.getInstance().getFloors().get(9).addPerson(new Person(11,10,14));
-                Building.getInstance().floorButtonPress(3, 10, "UP");
-                
-                Building.getInstance().update(timeStep);
+                Building.getInstance().floorButtonPress(3, 10, "UP");   
             }
-            else{
-                Building.getInstance().update(timeStep);
-            }
-            
+           
+            Building.getInstance().update(timeStep);
+           
             simulationTimeElapsedMillis = simulationTimeElapsedMillis + timeStep;
             
             try {
