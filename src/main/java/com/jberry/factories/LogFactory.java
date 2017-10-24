@@ -24,26 +24,26 @@ public class LogFactory implements Loggable {
     public LogFactory(){}
     ///CTOR WONT WORK FOR ALL EVENT TYPES
     ///DIFFERENT EVENTS REQUIRE DIFFERENT PARAMS
-    //HAVE TO OVERLOAD CTOR
+    ///OVERLOAD CTOR IN FIRST SUBMISSION
     
     public static Log createNewLog(int senderID, int senderCurrentFloor,int senderDestFloor, String timeStampIn, Event eventIn){
         switch(eventIn){
             case HANDLING_RIDER_REQUEST:
                 timeStamp = timeStampIn;
                 logFrom = "    Elevator "+senderID;
-                logDetail = "is moving from " +senderCurrentFloor +"\n to Floor "+senderDestFloor + " Floor Stops " +
+                logDetail = "is moving from " +senderCurrentFloor +"\n to Floor "+senderDestFloor + " (Floor Stops " +
                                Building.getInstance().getElevators().get(senderID - 1).getFloorStops() + " Rider Stops: "+
-                               Building.getInstance().getElevators().get(senderID - 1).getRiderStops();
+                               Building.getInstance().getElevators().get(senderID - 1).getRiderStops()+")";
                 logMessage = timeStamp + logFrom + logDetail;
                 log = new ElevatorLog(logMessage);
                 break;
                 
             case DOORS_OPEN:
                 timeStamp = timeStampIn;
-                logFrom = "    Elevator "+senderID;
-                logDetail = " doors are open on floor " +senderCurrentFloor + " Floor Stops " + 
+                logFrom = "     Elevator "+senderID;
+                logDetail = " doors are open on floor " +senderCurrentFloor + " (Floor Stops " + 
                                Building.getInstance().getElevators().get(senderID - 1).getFloorStops() + " Rider Stops: "+
-                               Building.getInstance().getElevators().get(senderID - 1).getRiderStops();
+                               Building.getInstance().getElevators().get(senderID - 1).getRiderStops() +")";
                 logMessage = timeStamp + logFrom + logDetail;
                 log = new ElevatorLog(logMessage);
                 break;    
@@ -51,9 +51,9 @@ public class LogFactory implements Loggable {
             case DOORS_CLOSED:
                 timeStamp = timeStampIn;
                 logFrom = "     Elevator "+senderID;
-                logDetail = " doors are closed on floor " +senderCurrentFloor + " Floor Stops " +
+                logDetail = " doors are closed on floor " +senderCurrentFloor + " (Floor Stops " +
                                Building.getInstance().getElevators().get(senderID - 1).getFloorStops() +" Rider Stops: "+
-                               Building.getInstance().getElevators().get(senderID - 1).getRiderStops();
+                               Building.getInstance().getElevators().get(senderID - 1).getRiderStops() +")";
                 logMessage = timeStamp + logFrom + logDetail;
                 log = new ElevatorLog(logMessage);
                 break; 
@@ -61,9 +61,9 @@ public class LogFactory implements Loggable {
             case MOVING:
                 timeStamp = timeStampIn;
                 logFrom = "     Elevator "+senderID;
-                logDetail = " moving from Floor " +senderCurrentFloor + " to Floor " +senderDestFloor + " Floor Stops " +
+                logDetail = " moving from Floor " +senderCurrentFloor + " to Floor " +senderDestFloor + " (Floor Stops " +
                                Building.getInstance().getElevators().get(senderID - 1).getFloorStops() + " Rider Stops: "+
-                               Building.getInstance().getElevators().get(senderID - 1).getRiderStops();
+                               Building.getInstance().getElevators().get(senderID - 1).getRiderStops() + ")";
                 logMessage = timeStamp + logFrom + logDetail;
                 log = new ElevatorLog(logMessage);
                 break; 
@@ -77,7 +77,7 @@ public class LogFactory implements Loggable {
               case PERSON_CREATED:
                 timeStamp = timeStampIn;
                 logFrom = "     Person "+senderID;
-                logDetail = "  created "+ senderCurrentFloor + " wants to go " + directionIn + " to Floor " + senderDest; 
+                logDetail = "  created on floor "+ senderCurrentFloor + " wants to go " + directionIn + " to Floor " + senderDest; 
                 logMessage = timeStamp + logFrom + logDetail;
                 log = new ElevatorLog(logMessage);
                 break;

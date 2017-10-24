@@ -22,7 +22,6 @@ public class FloorFactory {
         buildingFloors = new ArrayList<Floor>();
         
         for(int i=1; i<=numberOfFloorsIn; i++){
-            
             peopleToAddToFloor = new ArrayList<Person>();
             
           if(peopleInBuilding.isEmpty()){
@@ -35,7 +34,6 @@ public class FloorFactory {
             Floor newFloor = new Floor(i, numberOfElevatorsIn, peopleToAddToFloor); //IF FLOOR ID MATCHES PERSON ID, ADD TO ARRAY)
             buildingFloors.add(newFloor);   
         }
-        
         return buildingFloors;
     }
     

@@ -5,11 +5,11 @@
  */
 package com.jberry.factories;
 
+import java.util.ArrayList;
+
 import com.jberry.elevatorsimulator.domain.Building;
 import com.jberry.elevatorsimulator.domain.Floor;
 import com.jberry.elevatorsimulator.domain.Elevator;
-
-import java.util.ArrayList;
 
 /**
  *
@@ -17,13 +17,9 @@ import java.util.ArrayList;
  */
 public class BuildingFactory {
     
-    private ElevatorFactory elevatorFactory;
-    private PersonFactory personFactory;
     private ArrayList<Floor> buildingFloors;
    
-    //CREATE TO DYNAMICALLY ALLOW DIFFERENT BUILDING TYPES THROUGH IMPL; TYPE INPUT
     public static Building createBuilding(String type, ArrayList<Floor> floorsIn, ArrayList<Elevator> elevatorsIn){
-        
         Building building = Building.getInstance();
         building.setFloors(floorsIn, elevatorsIn);
         return building; 

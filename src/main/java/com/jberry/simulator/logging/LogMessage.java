@@ -5,8 +5,6 @@
  */
 package com.jberry.simulator.logging;
 
-import com.jberry.factories.LogFactory;
-
 /**
  *
  * @author johnberry
@@ -19,7 +17,6 @@ public class LogMessage {
     public LogMessage(String messageIn){
         message = messageIn;
     }
-    
     public String getSenderID(){
         return timeStamp;
     }

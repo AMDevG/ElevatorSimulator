@@ -13,7 +13,6 @@ import com.jberry.interfaces.Log;
  */
 public class FloorLog implements Log {
     public String getMessage(){
-    
         return "";
     }
 }

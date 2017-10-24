@@ -18,16 +18,12 @@ public class PersonFactory {
     private final static int LOBBY_FLOOR = 1;
     private static int TOP_FLOOR;
 
-    
-    //CREATES ALL PEOPLE IN BUILDING; REQUIRES NUMBER OF PPL
-    //REQUIRES MAX NUMBER OF FLOORS TO DISTRIBUTE
     public static ArrayList<Person> createPeople(int numberPeopleToCreate, int maxFloors){
         peopleInBuilding = new ArrayList<Person>();
         int randomStartingFloor;
         int randomDestinationFloor;
         
         TOP_FLOOR = maxFloors; 
-       
         Random rn = new Random();
 
         //ASSIGNS ID (1 -> TOTAL NUMBER OF PEOPLE)

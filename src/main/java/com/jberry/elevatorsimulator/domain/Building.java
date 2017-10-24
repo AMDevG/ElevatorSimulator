@@ -5,9 +5,8 @@
  */
 package com.jberry.elevatorsimulator.domain;
 
-import com.jberry.factories.FloorFactory;
-import com.jberry.simulator.SimulatorSetting;
 import java.util.ArrayList;
+import com.jberry.simulator.SimulatorSetting;
 
 /**
  *

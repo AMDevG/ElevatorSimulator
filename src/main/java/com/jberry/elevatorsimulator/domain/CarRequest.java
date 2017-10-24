@@ -26,15 +26,19 @@ public class CarRequest implements Request{
     public int getRequestedFloorID(){
         return requestedFloorID;
     }
+    @Override
     public int getID(){
         return elevatorID;
     }
+    @Override
     public int getDestinationID(){
         return requestedFloorID;
     }
+    @Override
     public String getDirection(){
         return directionOfTravel;
     }
+    @Override
     public String getCallSender(){
         return REQUEST_TYPE;
     }

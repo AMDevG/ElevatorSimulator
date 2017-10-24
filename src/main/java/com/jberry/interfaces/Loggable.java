@@ -10,8 +10,7 @@ package com.jberry.interfaces;
  * @author johnberry
  */
 public interface Loggable{
-    
-        
+ 
     public enum Event{
         ELEVATOR_DISPATCHED,
         RIDER_REQUEST,

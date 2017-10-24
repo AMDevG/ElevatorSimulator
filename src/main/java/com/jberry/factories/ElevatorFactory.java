@@ -5,8 +5,8 @@
  */
 package com.jberry.factories;
 
-import com.jberry.elevatorsimulator.domain.Elevator;
 import java.util.ArrayList;
+import com.jberry.elevatorsimulator.domain.Elevator;
 
 /**
  *

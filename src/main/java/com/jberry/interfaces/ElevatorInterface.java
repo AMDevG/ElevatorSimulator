@@ -5,22 +5,18 @@
  */
 package com.jberry.interfaces;
 
-import com.jberry.elevatorsimulator.domain.CarRequest;
-
 /**
  *
  * @author johnberry
  */
 public interface ElevatorInterface extends Loggable {    
-    void move(long time);
     
     public final String UP_DIRECTION = "UP";
     public final String DOWN_DIRECTION = "DOWN";
     public final String IDLE_STATUS = "IDLE";
-    
     public final String EVENT_TYPE = "ELEVATOR";
     
-    
+    void move(long time);
     void openDoors();
     void closeDoors();
     double getCurrentFloor();

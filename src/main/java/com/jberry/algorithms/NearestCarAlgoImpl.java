@@ -23,16 +23,14 @@ public class NearestCarAlgoImpl implements SchedulingAlgorithm {
     private int ID;
     private int destinationFloorID;
     private String travelDirection;
-    
-    /** TEST CODE FOR BUILDING CHANGE!!!!!*/
-    private Building building;
+   
     
     private ArrayList<Floor> floors;
     private ArrayList<Elevator> elevatorBank;
     
     public NearestCarAlgoImpl(){ 
-        building = Main.getBuilding();
-        elevatorBank = building.getElevators();  
+        //building = Building.getInstance();
+        //elevatorBank = building.getElevators();  
     }
     
     public void handleCall(Request r){

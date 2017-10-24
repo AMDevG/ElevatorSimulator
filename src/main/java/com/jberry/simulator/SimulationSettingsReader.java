@@ -5,13 +5,13 @@
  */
 package com.jberry.simulator;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -25,8 +25,7 @@ public final class SimulationSettingsReader {
     private SimulationSettingsReader(){}   
     
     
-    public static SimulationSettingsReader getInstance(){
-        
+    public static SimulationSettingsReader getInstance(){  
         if(instance == null){
             instance = new SimulationSettingsReader();
             return instance;
@@ -34,7 +33,6 @@ public final class SimulationSettingsReader {
         return instance; 
     }
     
-
     public static SimulatorSetting parseSimulationSettings(String filePathIn){
 
        try{

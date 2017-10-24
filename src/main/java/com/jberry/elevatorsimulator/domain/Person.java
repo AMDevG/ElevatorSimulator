@@ -23,6 +23,10 @@ public class Person implements Loggable{
  
     private long waitTime;
     private long startTime;
+    private long rideStartTime;
+    private long rideEndTime;
+    private long rideTime;
+    
     private long endTime;
     private boolean FINISHED;
     
@@ -46,7 +50,6 @@ public class Person implements Loggable{
 
        Log logToDisplay = LogFactory.createNewLog(personID, currentFloor, destinationFloor, SystemTimer.getTimeStamp(), directionOfTravel, Loggable.Event.PERSON_CREATED);
        ActivityLogger.displayLog(logToDisplay);
-       // createNewLog(int senderID, int senderCurrentFloor,int senderDestFloor, String timeStampIn, String directionIn, Loggable.Event eventIn)
     }
 
     public void sendRequest(){
@@ -54,19 +57,10 @@ public class Person implements Loggable{
         Request r = new FloorRequest(currentFloor, destinationFloor, directionOfTravel);
         processor.handleRequest(r);
     }
-            
-    public void exitElevator(){
-        waiting = false;
-        calculateWaitTime();
-    }
     
-    public void enterElevator(){
-    }
-    
-    public int getID(){ // PUT INTO INTERFACE?
+    public int getID(){
         return personID;
     }
-    
     public int getCurrentFloor(){
         return currentFloor;
     }
@@ -76,8 +70,25 @@ public class Person implements Loggable{
     public String getDirection(){
         return directionOfTravel;
     }
+    
+    
+    public void startRideTime(){
+        rideStartTime = System.currentTimeMillis();
+    }
+    public void calculateRideTime(){
+        rideEndTime = System.currentTimeMillis();
+        rideTime = rideEndTime - rideStartTime;
+    }
+    public long getRideTime(){
+        return rideTime;
+    }
+    
+    
     public void startWaitTime(){
         startTime = System.currentTimeMillis();
+    }
+    public long getWaitTime(){
+        return waitTime;  
     }
     public void calculateWaitTime(){
         endTime = System.currentTimeMillis();

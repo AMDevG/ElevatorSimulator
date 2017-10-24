@@ -10,8 +10,5 @@ package com.jberry.interfaces;
  * @author johnberry
  */
 public interface Log extends Loggable{
-
-    
-    public String getMessage();
-    
+    public String getMessage();   
 }

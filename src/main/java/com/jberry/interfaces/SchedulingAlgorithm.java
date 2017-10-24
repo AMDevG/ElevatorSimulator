@@ -5,15 +5,12 @@
  */
 package com.jberry.interfaces;
 
-import com.jberry.elevatorsimulator.domain.CarRequest;
 
 /**
  *
  * @author johnberry
  */
 public interface SchedulingAlgorithm {
-    
-    //NEED TO MAKE REQUESTS GENERIC
     void handleCall(Request r);
     
 }

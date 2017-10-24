@@ -4,64 +4,42 @@
  * and open the template in the editor.
  */
 package com.jberry.elevatorsimulator.domain;
-import com.jberry.interfaces.Request;
-import com.jberry.interfaces.UpdateAble;
-import java.util.ArrayList;
 
+import java.util.ArrayList;
 /**
  *
  * @author johnberry
  */
-public class Floor implements UpdateAble {
+public class Floor{
     
     private final int floorID;
     private ArrayList<Person> peopleWaitingOnFloor;
     private ArrayList<Person> completedPassengers;
     private ArrayList<Elevator> availableElevators;
    
-    //REPLACE elevatorCount with ArrayList<Elevator>elevatorsIn 
     public Floor(int floorIDIn, int elevatorCount, ArrayList<Person>peopleIn){
        floorID = floorIDIn;    
        peopleWaitingOnFloor = peopleIn;
        completedPassengers = new ArrayList<Person>();
-       //availableElevators = elevatorsIn;
     }
     
     public void sendRequest(){
-      //test code selecting person change!!!!
-        Person testPerson = peopleWaitingOnFloor.get(0);
-      //--------------------------------------------------//  
-        testPerson.sendRequest();
+     /*   Person testPerson = peopleWaitingOnFloor.get(0); 
+        testPerson.sendRequest(); */
     }
-    
     public void addPerson(Person personIn){
         peopleWaitingOnFloor.add(personIn);
     }
-   
     public int getNumberofPeopleWaiting(){
         return peopleWaitingOnFloor.size();
     }
-    
     public ArrayList<Person> getPeopleWaiting(){
         return peopleWaitingOnFloor;
     }
-    
     public void addCompletedPersons(Person p){
         completedPassengers.add(p);
     }
-    
     public int getFloorID(){
         return floorID;
     }
-    
-    public void getDestinationFloorsOfPeopleWaiting(){
-        //RETURN ARRAY OF INT DESTINATIONS ??
-        for(Person p : peopleWaitingOnFloor){
-            System.out.println("Dest Floor" + p.getDestinationFloor()+"\n");
-        }  
-    }
-    
-    public void update(){
-        System.out.println("Updating Floors");
-    }  
 }
