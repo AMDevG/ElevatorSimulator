@@ -22,9 +22,6 @@ import com.jberry.simulator.Simulator;
 import com.jberry.simulator.SystemTimer;
 
 import gui.ElevatorDisplay;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.io.File; 
 
 /**
  *
@@ -35,7 +32,7 @@ public class Main {
      * @param args the command line arguments
      */
     
-    private static String currentDir = System.getProperty("user.dir");
+    private static final String currentDir = System.getProperty("user.dir");
     private static String SETTINGS_FILE_PATH;
     
     private static final int LOBBY_FLOOR = 1;
@@ -55,7 +52,7 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         String USER_OS = System.getProperty("os.name");
         
-        //IF USER IS ON MAC, CHANGE FILE PATH STRING
+        //IF USER IS ON UNIX SYSTEM, CHANGE FILE PATH STRING
         if(!USER_OS.contains("Window")){
             SETTINGS_FILE_PATH = currentDir + "//simulationSpecs.json";  
         }

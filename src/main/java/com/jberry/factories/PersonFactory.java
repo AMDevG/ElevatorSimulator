@@ -26,9 +26,6 @@ public class PersonFactory {
         TOP_FLOOR = maxFloors; 
         Random rn = new Random();
 
-        //ASSIGNS ID (1 -> TOTAL NUMBER OF PEOPLE)
-        //ASSIGNS RANDOM STARTING & DESTINATION FLOORS
-        
         for(int i=1; i<= numberPeopleToCreate; i++){
             randomStartingFloor = rn.nextInt((TOP_FLOOR - LOBBY_FLOOR) + 1) + LOBBY_FLOOR;
             int newID = i;

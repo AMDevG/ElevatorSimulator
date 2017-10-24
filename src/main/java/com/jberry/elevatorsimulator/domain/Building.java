@@ -19,7 +19,6 @@ public final class Building {
     private static long timeStep = SimulatorSetting.getTimeStepMills();
     
     private static Building instance;
-    
     private static ArrayList<Floor> floors;
     private static ArrayList<Elevator> elevators;
     
@@ -39,7 +38,6 @@ public final class Building {
             e.update(time);
         }
     }
-    
     public ArrayList<Elevator> getElevators(){
         return elevators;
     }
@@ -60,12 +58,10 @@ public final class Building {
         }
         return totalPeople; 
     }
-    
     public static void setFloors(ArrayList<Floor> floorsIn, ArrayList<Elevator> elevatorsIn){
         floors = floorsIn;
         elevators = elevatorsIn;
     }
-    
     public void floorButtonPress(int elevatorID, int floorID, String direction){
         elevators.get(elevatorID - 1).addFloorToVisit(floorID, direction);
     }

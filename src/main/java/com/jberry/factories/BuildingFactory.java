@@ -24,5 +24,4 @@ public class BuildingFactory {
         building.setFloors(floorsIn, elevatorsIn);
         return building; 
     }
-    
 }

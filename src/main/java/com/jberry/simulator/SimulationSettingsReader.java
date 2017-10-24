@@ -23,8 +23,7 @@ public final class SimulationSettingsReader {
     private static SimulationSettingsReader instance;
     
     private SimulationSettingsReader(){}   
-    
-    
+
     public static SimulationSettingsReader getInstance(){  
         if(instance == null){
             instance = new SimulationSettingsReader();
@@ -34,7 +33,6 @@ public final class SimulationSettingsReader {
     }
     
     public static SimulatorSetting parseSimulationSettings(String filePathIn){
-
        try{
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader(filePathIn));

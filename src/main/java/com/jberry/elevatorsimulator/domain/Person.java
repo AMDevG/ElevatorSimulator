@@ -11,7 +11,6 @@ import com.jberry.interfaces.Loggable;
 import com.jberry.interfaces.Request;
 import com.jberry.simulator.SystemTimer;
 import com.jberry.simulator.logging.ActivityLogger;
-import java.util.Random;
 
 /**
  *
@@ -23,18 +22,16 @@ public class Person implements Loggable{
  
     private long waitTime;
     private long startTime;
+    private long endTime;
     private long rideStartTime;
     private long rideEndTime;
     private long rideTime;
     
-    private long endTime;
     private boolean FINISHED;
-    
     private boolean waiting;
     
     private int currentFloor;
     private int destinationFloor;
-    
     private String directionOfTravel;
     
     public Person(int IDIn, int currentFloorIn, int destFloorIn){

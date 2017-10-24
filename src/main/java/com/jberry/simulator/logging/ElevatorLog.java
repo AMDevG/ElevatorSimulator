@@ -18,7 +18,6 @@ public class ElevatorLog implements Log {
     public ElevatorLog(String messageIn){
         logMessage = messageIn;
     }
-    
     public String getMessage(){
         return logMessage;
     }
